@@ -1,0 +1,7 @@
+Django
+psycopg2-binary
+djangorestframework
+djangorestframework-simplejwt
+channels
+django-cors-headers
+django-environ
