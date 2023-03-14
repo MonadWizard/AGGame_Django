@@ -29,12 +29,13 @@ PROJECT_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'channels',
+    'daphne',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'channels',
 ]
 
-INSTALLED_APPS = CORE_APPS + PROJECT_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS =  THIRD_PARTY_APPS + CORE_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,6 +69,7 @@ TEMPLATES = [
 
 # WSGI_APPLICATION = 'aggame_project.wsgi.application'
 ASGI_APPLICATION = "aggame_project.asgi.application"
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -89,10 +91,8 @@ DATABASES = {
 }
 
 # CORS WHITELIST
-CORS_ORIGIN_WHITELIST = [
-    "http://127.0.0.1:8080"
-]
-
+CORS_ORIGIN_WHITELIST = [url.strip("'") for url in 
+                        os.environ['CORS_ORIGIN_WHITELIST'].strip('[]').split("', '")]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

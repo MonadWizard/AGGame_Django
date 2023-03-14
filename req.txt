@@ -5,3 +5,5 @@ djangorestframework-simplejwt
 channels
 django-cors-headers
 django-environ
+daphne
+channels_redis
