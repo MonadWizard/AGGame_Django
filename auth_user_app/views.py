@@ -35,7 +35,7 @@ class SignUpMailVerifyRequestView(views.APIView):
     
     def post(self, request):
         data = request.data
-        user_fullname = data['user_fullname']
+        user_username = data['user_username']
         user_email = data['user_email']
         password = data['password']
         user_country = data['user_country']
@@ -47,7 +47,7 @@ class SignUpMailVerifyRequestView(views.APIView):
 # Token passing
         payload = {
             'user_email': user_email,
-            'user_fullname': user_fullname,
+            'user_username': user_username,
             'password': password,
             'user_country': user_country,
             'user_state_divition': user_state_divition,
@@ -61,7 +61,7 @@ class SignUpMailVerifyRequestView(views.APIView):
         relativeLink = reverse('email-verify')
         absurl = 'http://'+current_site+relativeLink+"?token="+str(token)
         
-        email_body = 'Hi '+user_fullname + \
+        email_body = 'Hi '+user_username + \
             ' Use the link below to verify your email \n ' + absurl
         
         data = {'email_body': email_body, 'to_email': user_email,
@@ -128,7 +128,7 @@ class UpdateRegisterView(views.APIView):
 
     def put(self,request,user_email):
         user_email = self.get_object(user_email)
-        fullname_pasport = request.data['user_fullname_passport']
+        fullname_pasport = request.data['user_username_passport']
         serializer = UpdateRegisterSerializer(user_email,data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
