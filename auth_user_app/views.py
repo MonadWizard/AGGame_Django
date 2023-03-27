@@ -15,6 +15,10 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import permissions
 from django.http import Http404
 
+from rest_framework.decorators import api_view
+from django.db import connection
+import json
+
 from .models import User
 from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
@@ -82,7 +86,7 @@ class VerifyEmailCOmpleteSignUpView(views.APIView):
 
         try:
             verified_mail_payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-            print("payload--------------",verified_mail_payload)
+            # print("payload--------------",verified_mail_payload)
 
 
             # user = request.data
@@ -112,6 +116,121 @@ class VerifyEmailCOmpleteSignUpView(views.APIView):
             html = "<html><body>Invalid token.</body></html>"
             return HttpResponse(html)
             # return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutAPIView(generics.GenericAPIView):
+    serializer_class = LogoutSerializer
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response("successfully logout",status=status.HTTP_204_NO_CONTENT)
+
+
+
+class LoginAPIView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+@api_view(['GET','POST'])
+def edit_user_profile(request):
+    if request.method =='GET':
+        return Response('get data')
+
+    elif request.method == 'POST':
+        data = json.dumps(request.data)
+        query = f"select update_table('{data}'::jsonb);"
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                # row = cursor.fetchone()
+                # row = json.loads(row[0])
+                return Response(
+                    {
+                        "status": "success",
+                        "data": "profile update success",
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+@api_view(['GET','POST'])
+def update_interested_sports(request):
+    if request.method =='GET':
+        return Response('get data')
+
+    elif request.method == 'POST':
+        data = json.dumps(request.data)
+        query = f"select profile_interested_sports('{data}'::jsonb);"
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                # row = cursor.fetchone()
+                # row = json.loads(row[0])
+                return Response(
+                    {
+                        "status": "success",
+                        "data": "row",
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+            
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -144,15 +263,6 @@ class UpdateRegisterView(views.APIView):
         Util.send_email(data)
         return Response(user_data, status=status.HTTP_201_CREATED)
     
-
-
-class LoginAPIView(generics.GenericAPIView):
-    serializer_class = LoginSerializer
-
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class RequestPasswordResetEmail(generics.GenericAPIView):
@@ -212,19 +322,6 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response({'success': True, 'message': 'Password reset success'}, status=status.HTTP_200_OK)
 
-
-class LogoutAPIView(generics.GenericAPIView):
-    serializer_class = LogoutSerializer
-
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def post(self, request):
-
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response("successfully logout",status=status.HTTP_204_NO_CONTENT)
 
 class ViewUser(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)

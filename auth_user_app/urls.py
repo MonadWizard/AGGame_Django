@@ -1,10 +1,14 @@
 from django.urls import path
 from .views import  (SignUpMailVerifyRequestView,
                     VerifyEmailCOmpleteSignUpView,
-                    UpdateRegisterView,
-                    LogoutAPIView,
-                    SetNewPasswordAPIView,
                     LoginAPIView,
+                    LogoutAPIView,
+                    edit_user_profile,
+                    update_interested_sports,
+                    
+
+                    SetNewPasswordAPIView,
+                    UpdateRegisterView,
                     PasswordTokenCheckAPI,
                     RequestPasswordResetEmail,
                     ViewUser)
@@ -20,9 +24,13 @@ urlpatterns = [
     path('logout/', LogoutAPIView.as_view(), name="logout"),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    path('edit_profile/', edit_user_profile, name='edit_user_profile'),
+    path('update_interested_sports/', update_interested_sports, name='update_interested_sports'),
+
 
 
     
+    # not used
     path('Update-register/<str:user_email>', UpdateRegisterView.as_view(), name="update-register"),
 
     path('request-reset-email/', RequestPasswordResetEmail.as_view(),name="request-reset-email"),

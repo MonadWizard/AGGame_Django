@@ -82,9 +82,6 @@ class LoginSerializer(serializers.ModelSerializer):
         user = authenticate(user_email=user_email, password=password)
 
         # print("filtered_user_by_email::::::",filtered_user_by_email)
-        print("user_email::::::",type(user_email))
-        print("user_password::::::",type(password))
-        print("user::::::",user)
         # print("filtered_user_by_email[0].auth_provider::::::",str(filtered_user_by_email[0]) != user_email)
 
         # if filtered_user_by_email.exists() and str(filtered_user_by_email[0]) != user_email:
