@@ -20,6 +20,7 @@ installed_app_route = [
     path("home/", include("home_app.urls")),
     path("team/", include("team_app.urls")),
     path("tournament/", include("tournament_app.urls")),
+    path("live_scoring/", include("live_scoring_app.urls")),
 ]
 
 urlpatterns = urlpatterns + installed_app_route

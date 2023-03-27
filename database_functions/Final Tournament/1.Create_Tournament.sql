@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION TournamentCreation(passing_data JSONB)
 RETURNS VOID AS $$
 DECLARE
---     Tournament_ID VARCHAR(255) := passing_data ->> 'Tournament_ID';
+    Tournament_ID VARCHAR(255) := (floor(random() * 9000 + 1000)::INT || TO_CHAR(now(), 'YYYYMMDDHH24MISSMS'));
     Tournament_Owner VARCHAR(255) := passing_data ->> 'Tournament_Owner';
     Tournament_logo VARCHAR(255) := passing_data ->> 'Tournament_logo';
     Tournament_Name VARCHAR(255) := passing_data ->> 'Tournament_Name';
@@ -28,17 +28,20 @@ BEGIN
                     OrganizerPhone, Tournament_Admin, TournamentStartDate, NumberOfTeamsInGroup,
                     NumberOfGroupsInTournament, groupTeamDetails, Tournament_MatchConfiguration)
                     VALUES (
-                    (floor(random() * 9000 + 1000)::INT || TO_CHAR(now(), ''YYYYMMDDHH24MISSMS'')), ''%s'', ''%s'', ''%s'',
+                    ''%s'', ''%s'', ''%s'', ''%s'',
                     ''%s'', ''%s'', ''%s'',
                     ''%s'', ''%s'', ''%s'', ''%s'',
                     ''%s'', ''%s'', ''%s'', ''%s'',
                     ''%s'', ''%s'', ''%s'')',
-        Tournament_Owner, Tournament_logo, Tournament_Name,
+        Tournament_ID, Tournament_Owner, Tournament_logo, Tournament_Name,
         TournamentMatchType, Type_of_Tournament, Sport_or_Game_Configuration,
         TournamentLocation, OrganizerName, HostName, OrganizerEmail,
         OrganizerPhone, Tournament_Admin, TournamentStartDate, NumberOfTeamsInGroup,
         NumberOfGroupsInTournament, groupTeamDetails, Tournament_MatchConfiguration);
     EXECUTE query;
+
+    PERFORM create_dynamic_table_for_tournament(Tournament_ID);
+
 END;
 $$ LANGUAGE plpgsql;
 
@@ -47,7 +50,7 @@ $$ LANGUAGE plpgsql;
 
 SELECT TournamentCreation(
     '{
-      "Tournament_Owner": "0327050834329034",
+      "Tournament_Owner": "0322045912807866",
       "Tournament_logo": "http://example.com/logo.png",
       "Tournament_Name": "Example Tournament",
       "TournamentMatchType": "Single Elimination",
