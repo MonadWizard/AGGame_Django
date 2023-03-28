@@ -63,6 +63,8 @@ class LoginSerializer(serializers.ModelSerializer):
     user_email = serializers.EmailField(required=True, max_length=255, min_length=3)
     password = serializers.CharField(required=True, max_length=68, min_length=6, write_only=True)
     tokens = serializers.SerializerMethodField()
+    user_id = serializers.CharField(source='userid', read_only=True)
+
 
     def get_tokens(self, obj):
         user = User.objects.get(user_email=obj['user_email'])
@@ -73,19 +75,13 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['user_email', 'password', 'tokens']
+        fields = ['user_email','user_id','password', 'tokens' ]
 
     def validate(self, attrs):
         user_email = attrs.get('user_email', '')
         password = attrs.get('password', '')
         # filtered_user_by_email = User.objects.filter(user_email=user_email)
         user = authenticate(user_email=user_email, password=password)
-
-        # print("filtered_user_by_email::::::",filtered_user_by_email)
-        # print("filtered_user_by_email[0].auth_provider::::::",str(filtered_user_by_email[0]) != user_email)
-
-        # if filtered_user_by_email.exists() and str(filtered_user_by_email[0]) != user_email:
-        #     raise AuthenticationFailed(detail='Please continue your login using ' + filtered_user_by_email[0].auth_provider)
 
         if not user:
             raise AuthenticationFailed('Invalid credentials, try again.............')
@@ -94,11 +90,14 @@ class LoginSerializer(serializers.ModelSerializer):
         # if not user.is_verified:
         #     raise AuthenticationFailed('Email is not verified')
 
+        # print('user::::::::::', user.userid)
+
         return {
             'user_email': user.user_email,
+            'userid': user.userid,
             'tokens': user.tokens
         }
-        return super().validate(attrs)
+        # return super().validate(attrs)
 
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
