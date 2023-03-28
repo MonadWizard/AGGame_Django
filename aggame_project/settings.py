@@ -91,8 +91,11 @@ DATABASES = {
 }
 
 # CORS WHITELIST
-CORS_ORIGIN_WHITELIST = [url.strip("'") for url in 
-                        os.environ['CORS_ORIGIN_WHITELIST'].strip('[]').split("', '")]
+# CORS_ORIGIN_WHITELIST = [url.strip("'") for url in 
+#                         os.environ['CORS_ORIGIN_WHITELIST'].strip('[]').split("', '")]
+
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
