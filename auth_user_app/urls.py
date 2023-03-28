@@ -5,6 +5,7 @@ from .views import  (SignUpMailVerifyRequestView,
                     LogoutAPIView,
                     edit_user_profile,
                     update_interested_sports,
+                    get_profile_info,
                     
 
                     SetNewPasswordAPIView,
@@ -26,7 +27,7 @@ urlpatterns = [
 
     path('edit_profile/', edit_user_profile, name='edit_user_profile'),
     path('update_interested_sports/', update_interested_sports, name='update_interested_sports'),
-
+    path('get_profile_info/<str:user_id>/', get_profile_info, name='get_profile_info'),
 
 
     
@@ -37,4 +38,6 @@ urlpatterns = [
     path('password-reset/<uidb64>/<token>/',PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
     path('password-reset-complete/', SetNewPasswordAPIView.as_view(),name='password-reset-complete'),
     path('user/<str:pk>', ViewUser.as_view(), name="user-data"),
+
+    
 ]

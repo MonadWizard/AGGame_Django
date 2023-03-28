@@ -209,6 +209,42 @@ def update_interested_sports(request):
 
 
 
+@api_view(['GET','POST'])
+def get_profile_info(request, user_id):
+
+    if request.method =='GET':
+        data = user_id
+        query = f"select get_profile_info('{data}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                # row = cursor.fetchall()
+                row = cursor.fetchone()
+                row = json.loads(row[0])
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
+
+            
+
 
     
 

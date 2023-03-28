@@ -305,3 +305,48 @@ def team_player_list(request):
                 )
         
 
+
+
+@api_view(['GET','POST'])
+def get_team_info(request, user_id, limit, offset):
+
+    if request.method =='GET':
+        user_id = user_id
+        limit = limit
+        offset = offset
+
+        query = f"select get_team_info('{user_id}',{limit},{offset});"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                # row = cursor.fetchall()
+                row = cursor.fetchone()
+                row = json.loads(row[0])
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
+
+   
+
+
+
+
+
