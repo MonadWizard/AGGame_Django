@@ -28,11 +28,4 @@ os.environ['EMAIL_SERVER_EMAIL_PASSWORD'] = 'jjNBHyt&^$536554'
 
 
 
-os.environ['CORS_ALLOWED_ORIGINS'] = str([
-    "http://127.0.0.1:8005",
-    "http://192.168.1.22:8005",
-    "http://192.168.1.11:8005",
-    "http://192.168.1.17:8005"
-])
-
 CORS_ORIGIN_ALLOW_ALL = True

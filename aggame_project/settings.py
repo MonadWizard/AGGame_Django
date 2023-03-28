@@ -94,10 +94,6 @@ DATABASES = {
 # CORS_ORIGIN_WHITELIST = [url.strip("'") for url in 
 #                         os.environ['CORS_ORIGIN_WHITELIST'].strip('[]').split("', '")]
 
-
-CORS_ALLOWED_ORIGINS = [url.strip("'") for url in 
-                        os.environ['CORS_ALLOWED_ORIGINS'].strip('[]').split("', '")]
-
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
