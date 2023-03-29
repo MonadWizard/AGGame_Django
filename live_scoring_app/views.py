@@ -44,17 +44,6 @@ def start_match(request):
             
 
 
-            
-
-
-
-
-
-
-
-
-
-
 
 @api_view(['GET','POST'])
 def live_score_input(request):

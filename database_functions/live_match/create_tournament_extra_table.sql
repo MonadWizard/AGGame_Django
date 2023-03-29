@@ -172,8 +172,6 @@ drop function create_dynamic_table_for_tournament;
 select * from tournament;
 
 
-
-
 select * from "822420230327085423799__tournamentShedule";
 
 
