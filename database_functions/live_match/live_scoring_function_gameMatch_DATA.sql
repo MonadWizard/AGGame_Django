@@ -1,8 +1,7 @@
 -- for regular ball run taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345678","name":"pagol"},
                         "bowling": {"id":"2345678","name":"pagol"},
@@ -15,10 +14,9 @@ select input_live_Score('{
 
 
 -- for 1st time no-ball taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345678","name":"pagol"},
                         "bowling": {"id":"2345678","name":"pagol"},
@@ -30,10 +28,9 @@ select input_live_Score('{
                         }');
 
 -- for after no-ball right ball run taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -42,16 +39,15 @@ select input_live_Score('{
 
                         "isAfterNoBall": true,
                         "isNoBall" : false,
-                        "runsTaken": "8",
+                        "runsTaken": "2",
                         "whereRunTaken": "any where"
                         }');
 
 
 -- for again no-ball taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -69,10 +65,9 @@ select input_live_Score('{
 
 
 -- for again wide ball taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -92,10 +87,9 @@ select input_live_Score('{
 
 
 -- for 1st time wide-ball taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -111,10 +105,9 @@ select input_live_Score('{
 
 
 -- for legBy taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -129,10 +122,9 @@ select input_live_Score('{
 
 
 -- for OverThrow taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -148,10 +140,9 @@ select input_live_Score('{
 
 
 -- for CatchDrop taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -166,10 +157,9 @@ select input_live_Score('{
 
 
 -- for Bowled-out / LBW / Stumped/ Caught-Behind taken
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -185,10 +175,9 @@ select input_live_Score('{
 
 
 -- for spectaculorCatchFielding taken          -- update last column
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -199,10 +188,11 @@ select input_live_Score('{
                         }');
 
 
-select input_live_Score('{
-                        "tournamentId": "526020230322102230626",
-                        "matchId":"123",
-                        "scorrerId": "0322045912807866",
+-- for situation taken          -- update last column
+
+select input_live_score_game('{
+                        "matchId":"724420230329054150986",
+                        "scorrerId": "0329043540613666",
                         "facing": {"id":"2345678","name":"pagol"},
                         "runner": {"id":"2345679","name":"pagol1"},
                         "bowling": {"id":"2345677","name":"pagol2"},
@@ -214,20 +204,14 @@ select input_live_Score('{
 
 
 
-select * from "526020230322102230626__456__tSingleMatchBByDetails";
-
-select * from "526020230322102230626__123__tSingleMatchBByDetails";
-
 -- remove last history of serial
-TRUNCATE "526020230322102230626__123__tSingleMatchBByDetails" RESTART IDENTITY;
+TRUNCATE "724420230329054150986__GameMatchBByDetails" RESTART IDENTITY;
 
 select * from tournament;
 
 select * from "cricketprofile";
 
-select * from "526020230322102230626__tournamentShedule";
-
-
+select * from "724420230329054150986__GameMatchBByDetails";
 
 
 

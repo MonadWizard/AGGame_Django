@@ -59,8 +59,6 @@ select * from tournament_schedule;
 
 select * from tournament;
 
-select * from "526020230322102230626__123__tSingleMatchBByDetails";
 
-drop table "526020230322102230626__123__tSingleMatchBByDetails";
 
 

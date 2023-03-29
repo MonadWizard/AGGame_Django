@@ -1,7 +1,7 @@
-drop function input_live_Score(passing_data jsonb);
+drop function input_live_Score_tournament(passing_data jsonb);
 
 
-create or replace function input_live_Score(passing_data jsonb)
+create or replace function input_live_Score_tournament(passing_data jsonb)
 returns void
 as
 $$
