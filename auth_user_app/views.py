@@ -152,7 +152,7 @@ def edit_user_profile(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        query = f"select update_table('{data}'::jsonb);"
+        query = f"select update_user_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)

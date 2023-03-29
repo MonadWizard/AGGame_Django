@@ -2,6 +2,7 @@ select * from auth_user_app_user;
 
 select * from cricketprofile;
 
+
 CREATE OR REPLACE FUNCTION name_Search(search_string text)
 RETURNS jsonb
 AS $$

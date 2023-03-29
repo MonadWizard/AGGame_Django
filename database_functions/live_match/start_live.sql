@@ -52,10 +52,12 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-SELECT create_dynamic_table_for_tournament_single_match_start('456', '526020230322102230626');
+SELECT create_dynamic_table_for_tournament_single_match_start('456', '822420230327085423799');
 
 
 select * from tournament_schedule;
+
+select * from tournament;
 
 select * from "526020230322102230626__123__tSingleMatchBByDetails";
 

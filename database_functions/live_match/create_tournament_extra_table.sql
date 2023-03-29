@@ -18,7 +18,8 @@ BEGIN
     tournament_ID varchar(30) ,
     TMatch_Date	TIMESTAMP,
     TMatch_ReportingTime TIME,
-    TMatch_teams jsonb,
+    TMatch_team1 varchar(50),
+    TMatch_team2 varchar(50),
     TMatch_No int,
     TMatch_Status varchar(255),
     TMatchField_name varchar(255),
@@ -48,7 +49,9 @@ BEGIN
     TMatch_Toss VARCHAR(50),
     TMatch_Result VARCHAR(50),
     TMatch_ManOfTheMatch VARCHAR(255),
-    foreign key(tournament_ID) references Tournament(tournament_ID)
+    foreign key(tournament_ID) references tournament(tournament_ID),
+    foreign key(TMatch_team1) references team(team_id),
+    foreign key(TMatch_team1) references team(team_id)
 
     )';
 
@@ -169,6 +172,9 @@ drop function create_dynamic_table_for_tournament;
 select * from tournament;
 
 
+
+
+select * from "822420230327085423799__tournamentShedule";
 
 
 

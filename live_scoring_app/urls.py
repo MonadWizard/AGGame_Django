@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import demo
+from .views import live_score_input,start_match
 
 
 urlpatterns = [
-    path('demo/', demo, name='demo'),
+    path('live_score_input/', live_score_input, name='live_score_input'),
+    path('start_match/', start_match, name='start_match'),
     
 
 ]
