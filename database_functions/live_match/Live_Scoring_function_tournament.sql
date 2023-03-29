@@ -101,6 +101,10 @@ begin
 
     IF (passing_data ? 'runTaken') THEN
         live_score := (live_score + runTaken);
+        IF balByOver = 0 THEN
+            balByOver := 6;
+            totalOver := totalOver-1;
+        END IF;
         query := format('INSERT INTO %s (
 	                    tournamentid, tmatchid, ballsbyover, over, livescore, matchlivescorrerid, bowling, facing,
                          runner, extrarunner, runstaken, runswheretaken,change_side)
@@ -112,6 +116,10 @@ begin
         --      1st time no ball
     ELSIF (passing_data ? 'runNoBall') THEN
         live_score := (live_score + runNoBall+byRunsOnNoBall);
+        IF balByOver = 0 THEN
+            balByOver := 6;
+            totalOver := totalOver-1;
+        END IF;
         query := format('INSERT INTO %s (
 	                    tournamentid, tmatchid, ballsbyover, over, livescore, matchlivescorrerid, bowling, facing,
                          runner,change_side, extrarunner, runnoball, byrunsonnoball)
@@ -156,6 +164,10 @@ begin
 --     1st time wide ball
     ELSIF (passing_data ? 'runWideBall') THEN
         live_score := (live_score + runWideBall+byRunsOnWideBall);
+        IF balByOver = 0 THEN
+            balByOver := 6;
+            totalOver := totalOver-1;
+        END IF;
         query := format('INSERT INTO %s (
 	                    tournamentid, tmatchid, ballsbyover, over, livescore, matchlivescorrerid, bowling, facing,
                          runner,change_side, extrarunner, runwideball, byrunsonwideball,runswheretaken)
@@ -166,6 +178,10 @@ begin
 
     ELSIF (passing_data ? 'runsOnLegBy') THEN
         live_score := (live_score + runsOnLegBy);
+        IF balByOver = 0 THEN
+            balByOver := 6;
+            totalOver := totalOver-1;
+        END IF;
         query := format('INSERT INTO %s (
 	                    tournamentid, tmatchid, ballsbyover, over, livescore, matchlivescorrerid, bowling, facing,
                          runner, extrarunner, runsonlegby, runswheretaken,change_side)
@@ -192,6 +208,10 @@ begin
 
     ELSIF (passing_data ? 'wicketsTaken') THEN
         live_score := (live_score);
+        IF balByOver = 0 THEN
+            balByOver := 6;
+            totalOver := totalOver-1;
+        END IF;
         query := format('INSERT INTO %s (
 	                    tournamentid, tmatchid, ballsbyover, over, livescore, matchlivescorrerid, bowling, facing,
                          runner, extrarunner,change_side,wicketstaken,wickettype,wicketwheretaken,wickettakingassistant)

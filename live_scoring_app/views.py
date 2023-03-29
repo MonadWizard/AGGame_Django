@@ -98,11 +98,11 @@ def start_match_game(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                row = cursor.fetchall()
+                # row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
-                        "data": row,
+                        "data": "Game match is ready for live score",
                     },
                     status=status.HTTP_200_OK,
                 )
