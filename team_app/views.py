@@ -344,8 +344,44 @@ def get_team_info(request, user_id, limit, offset):
     elif request.method == 'POST':
         return Response('post data')
 
-   
 
+
+
+
+@api_view(['GET','POST'])
+def name_Search(request, user_name):
+
+    if request.method =='GET':
+        user_name = user_name
+        
+        query = f"select name_Search('{user_name}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                # row = cursor.fetchall()
+                row = cursor.fetchone()
+                row = json.loads(row[0])
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
 
 
 

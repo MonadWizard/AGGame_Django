@@ -4,6 +4,7 @@ SELECT update_user_profile('{
   "userid": "0327050758707019",
   "user_username": "zobia",
   "user_email": "zobi@gmail.com",
+  "user_callphone": "+8801234567",
   "user_dob": "1990/04/15",
   "user_life_history":
     {
@@ -32,7 +33,6 @@ RETURNS VOID AS
 $$
 DECLARE
     user_id varchar := pass_data ->> 'userid';
-    username varchar := pass_data ->> 'user_username';
     user_dob DATE  :=  pass_data ->> 'user_dob';
     user_fullname jsonb := pass_data ->> 'user_fullname';
     user_email varchar := pass_data ->> 'user_email';
@@ -52,11 +52,11 @@ raise notice 'Input JSON: %', pass_data; -- add this line
   IF EXISTS (SELECT 1 FROM auth_user_app_user WHERE userid = user_id) THEN
 --
     query = format('UPDATE auth_user_app_user
-                   SET user_username = ''%s'', user_dob = ''%s'', user_fullname = ''%s'',user_configuration=''%s'',
+                   SET  user_dob = ''%s'', user_fullname = ''%s'',user_configuration=''%s'',
                    user_email = ''%s'', user_callphone = ''%s'', user_country = ''%s'',user_state_divition=''%s'',
                    user_playing_city = ''%s'', user_photopath = ''%s'', user_life_history = ''%s'',
                    user_interested_sports = ''%s'', user_playing_sports = ''%s''
-                   WHERE userid = ''%s''',username, user_dob, user_fullname, user_configuration, user_email, user_callphone,
+                   WHERE userid = ''%s''', user_dob, user_fullname, user_configuration, user_email, user_callphone,
                    user_country,user_state_divition,user_playing_city,user_photopath,user_life_history,
                    user_interested_sports,user_playing_sports,user_id);
    EXECUTE query;

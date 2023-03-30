@@ -152,6 +152,19 @@ def edit_user_profile(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
+
+        # take base64 image and save it to a file
+        # imgdata = base64.b64decode(data['user_profile_pic'])
+        # filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames
+        # with open(filename, 'wb') as f:
+        #     f.write(imgdata)
+
+        # save image to database
+        # with open(filename, 'rb') as f:
+        
+
+
+
         query = f"select update_user_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:

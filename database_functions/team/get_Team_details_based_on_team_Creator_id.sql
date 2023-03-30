@@ -26,4 +26,15 @@ $$ LANGUAGE plpgsql;
 -- select * from team;
 
 
-select get_team_info('0327050758707019',7,1);
+select get_team_info('0329043540613666',7,0);
+
+
+
+
+select * from team where team_creator_id = '0329043540613666';
+
+select * from auth_user_app_user;
+
+
+
+

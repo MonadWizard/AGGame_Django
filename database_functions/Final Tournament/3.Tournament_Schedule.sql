@@ -19,62 +19,59 @@ DECLARE
     team_id1 varchar;
     team_id2 varchar;
 BEGIN
- FOREACH obj IN ARRAY data
+    FOREACH obj IN ARRAY data
     LOOP
-
-      id_store := obj ->> 'tournament_id';
+        id_store := obj ->> 'tournament_id';
         table_store := '"' || id_store  || '__tournamentShedule'|| '"';
         t_match_number := (obj ->> 'tmatch_no')::VARCHAR;
         t_match_time := obj ->> 'tmatch_date' ;
         t_match_id := obj ->> 'tournament_id' || '_' || TO_CHAR(t_match_time, 'YYYYMMDDHH24MISSMS') || '_' || t_match_number;
 
-       query := format('INSERT INTO %s(tmatch_id,tournament_id,  tmatch_date, tmatch_reportingtime,tmatch_team1,tmatch_team2,tmatch_status,tmatchfield_name,tmatchfield_gmap)
-                     VALUES (''%s'',''%s'', ''%s'', ''%s'',''%s'', ''%s'',''%s'',''%s'', ''%s'')',
-                    table_store, t_match_id,obj ->> 'tournament_id', obj ->> 'tmatch_date',obj ->> 'tmatch_reportingtime', obj ->> 'tmatch_team1',obj ->> 'tmatch_team2', obj ->> 'tmatch_no',obj ->> 'tmatch_status', obj ->> 'tmatchfield_name',
-                     obj ->> 'tmatchfield_gmap');
+        query := format('INSERT INTO %s(tmatch_id,tournament_id,  tmatch_date, tmatch_reportingtime,tmatch_team1,tmatch_team2,tmatch_status,tmatchfield_name,tmatchfield_gmap)
+                         VALUES (''%s'',''%s'', ''%s'', ''%s'',''%s'', ''%s'',''%s'',''%s'', ''%s'')',
+                         table_store, t_match_id,obj ->> 'tournament_id', obj ->> 'tmatch_date',obj ->> 'tmatch_reportingtime', obj ->> 'tmatch_team1',obj ->> 'tmatch_team2', obj ->> 'tmatch_no',obj ->> 'tmatch_status', obj ->> 'tmatchfield_name',
+                         obj ->> 'tmatchfield_gmap');
 
-    execute query;
---     raise notice '%',query;
-    team_id1 := obj ->> 'tmatch_team1';
-    team_id2 := obj ->> 'tmatch_team2';
+        execute query;
 
- -- check if tournament_id is in tournament_perform column of team table
-   IF NOT EXISTS (
-      SELECT 1
-FROM team
-WHERE ((team_id = team_id1 OR team_id = team_id2)
-  AND NOT id_store = ANY(ARRAY(SELECT quote_literal(tp) FROM unnest(tournament_perform) AS tp)))
+        team_id1 := obj ->> 'tmatch_team1';
+        team_id2 := obj ->> 'tmatch_team2';
 
-    ) THEN
-      query1 := format('UPDATE team SET tournament_perform = array_append(tournament_perform, %L) WHERE team_id = %L OR team_id = %L', id_store, team_id1, team_id2);
-      EXECUTE query1;
-    END IF;
-
+        -- check if tournament_id is in tournament_perform column of team table
+        IF NOT EXISTS (
+            SELECT 1
+            FROM team
+            WHERE ((team_id = team_id1 OR team_id = team_id2)
+                AND NOT id_store = ANY(ARRAY(SELECT quote_literal(tp) FROM unnest(tournament_perform) AS tp)))
+        ) THEN
+            query1 := format('UPDATE team SET tournament_perform = array_append(tournament_perform, %L) WHERE team_id = %L OR team_id = %L', id_store, team_id1, team_id2);
+            EXECUTE query1;
+        END IF;
     END LOOP;
 END;
 $$ LANGUAGE plpgsql;
 
 
-SELECT tournament_schedule(ARRAY[
-'{"tournament_id":"482820230330042433006",
+
+SELECT tournament_schedule('[{"tournament_id":"482820230330042433006",
   "tmatch_date": "2024-02-02 15:20:00",
   "tmatch_reportingtime": "02:48",
-"tmatch_team1":"219120230327074511488",
-"tmatch_team2":"340820230327074542496",
-"tmatch_no":"2",
-"tmatch_status":"won 5 matches",
-"tmatchfield_name":"Army Stadium",
-"tmatchfield_gmap":"somelink.com"
-}'::json,
-'{"tournament_id":"482820230330042433006",
-"tmatch_date": "2024-02-03 15:20:00",
-"tmatch_reportingtime": "02:45",
-"tmatch_team1":"340820230327074542496",
-"tmatch_team2":"219120230327074511488",
-"tmatch_no":"1",
-"tmatch_status":"won 5 matches",
-"tmatchfield_name":"Army Stadium",
-"tmatchfield_gmap":"somelink.com"}'::json]
+  "tmatch_team1":"219120230327074511488",
+  "tmatch_team2":"340820230327074542496",
+  "tmatch_no":"40",
+  "tmatch_status":"won 5 matches",
+  "tmatchfield_name":"Army Stadium",
+  "tmatchfield_gmap":"somelink.com"
+},
+{"tournament_id":"482820230330042433006",
+ "tmatch_date": "2024-02-03 15:20:00",
+ "tmatch_reportingtime": "03:45",
+ "tmatch_team1":"340820230327074542496",
+ "tmatch_team2":"219120230327074511488",
+ "tmatch_no":"50",
+ "tmatch_status":"won 5 matches",
+ "tmatchfield_name":"Army Stadium",
+ "tmatchfield_gmap":"somelink.com"}]'
 );
 
 select * from tournament;
