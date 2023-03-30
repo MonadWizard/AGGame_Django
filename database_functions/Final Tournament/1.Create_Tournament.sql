@@ -50,7 +50,7 @@ $$ LANGUAGE plpgsql;
 
 SELECT TournamentCreation(
     '{
-      "Tournament_Owner": "0322045912807866",
+      "Tournament_Owner": "0327050758707019",
       "Tournament_logo": "http://example.com/logo.png",
       "Tournament_Name": "Example Tournament",
       "TournamentMatchType": "Single Elimination",
@@ -80,26 +80,6 @@ select * from auth_user_app_user;
 
 
 
-
-
-
-
-
-
-INSERT INTO tournament (
-Tournament_ID,Tournament_Owner, Tournament_logo, Tournament_Name,
-TournamentMatchType, Type_of_Tournament, Sport_or_Game_Configuration,
-TournamentLocation, OrganizerName, HostName, OrganizerEmail,
-OrganizerPhone, Tournament_Admin, TournamentStartDate, NumberOfTeamsInGroup,
-NumberOfGroupsInTournament, groupTeamDetails, Tournament_MatchConfiguration)
-VALUES (
-(floor(random() * 9000 + 1000)::INT || TO_CHAR(now(), 'YYYYMMDDHH24MISSMS')),
-        '0315094604478486', 'http://example.com/logo.png', 'Example Tournament',
-        'Single Elimination', 'Amateur', '{"ball_type": "leather", "field_type": "grass"}',
-        '{"city": "New York", "state": "NY", "country": "USA"}', 'Jane Doe', 'Example Sports Club', 'jane.doe@example.com',
-        '555-1234', 'admin@example.com', '2024-03-22 07.40', '4',
-        '2', '{"group1": ["Team A", "Team B", "Team C", "Team D"],
-      "group2": ["Team E", "Team F", "Team G", "Team H"]}', '{"match_length": 90, "halftime_length": 15, "overtime_length": 30}')
 
 
 

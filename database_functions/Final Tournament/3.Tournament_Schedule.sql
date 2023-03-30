@@ -1,23 +1,5 @@
 
-SELECT print_json(ARRAY[
-'{"tournament_id":"822420230327085423799",
-                                  "tmatch_date": "2023-03-01 15:20:00",
-                                  "tmatch_reportingtime": "02:45",
-                                  "tmatch_teams":{"playerId": "0322045912807866", "playerId": "0322045932619415"},
-"tmatch_no":"3",
-"tmatch_status":"won 5 matches",
-"tmatchfield_name":"Army Stadium",
-"tmatchfield_gmap":"somelink.com"
-}'::json,
-'{"tournament_id":"853320230323103918069",
-"tmatch_date": "2022-04-02 15:20:00",
-"tmatch_reportingtime": "02:45",
-"tmatch_teams":{"playerId": "0322045912807866", "playerId": "0322045932619415"},
-"tmatch_no":"3",
-"tmatch_status":"won 5 matches",
-"tmatchfield_name":"Army Stadium",
-"tmatchfield_gmap":"somelink.com"}'::json]
-);
+select * from team;
 
 select * from tournament_schedule;
 
@@ -31,59 +13,65 @@ DECLARE
     t_match_time timestamp;
     t_match_number varchar;
     table_store text;
- id_store varchar;
+    id_store varchar;
+    query1 text;
+
+    team_id1 varchar;
+    team_id2 varchar;
 BEGIN
  FOREACH obj IN ARRAY data
     LOOP
-        RAISE NOTICE '%', obj;
-        RAISE NOTICE '%', obj ->> 'tournament_id';
-        RAISE NOTICE '%', obj ->> 'tmatch_date';
-        RAISE NOTICE '%', obj ->> 'tmatch_reportingtime';
-        RAISE NOTICE '%', obj ->> 'tmatch_teams';
-        RAISE NOTICE '%', obj ->> 'tmatch_no';
-        RAISE NOTICE '%', obj ->> 'tmatch_status';
-        RAISE NOTICE '%', obj ->> 'tmatchfield_name';
-        RAISE NOTICE '%', obj ->> 'tmatchfield_gmap';
 
       id_store := obj ->> 'tournament_id';
-        table_store := '"' || id_store  || '__' || 'tournament_schedule'|| '"';
+        table_store := '"' || id_store  || '__tournamentShedule'|| '"';
         t_match_number := (obj ->> 'tmatch_no')::VARCHAR;
         t_match_time := obj ->> 'tmatch_date' ;
         t_match_id := obj ->> 'tournament_id' || '_' || TO_CHAR(t_match_time, 'YYYYMMDDHH24MISSMS') || '_' || t_match_number;
---         t_match_id := TO_CHAR(t_match_time, 'YYYYMMDDHH24MISSMS') ;
 
-       query := format('INSERT INTO %s(tmatch_id,tournament_id,  tmatch_date, tmatch_reportingtime,
-                      tmatch_teams, tmatch_no, tmatch_status, tmatchfield_name, tmatchfield_gmap)
-                     VALUES (''%s'',''%s'', ''%s'', ''%s'', ''%s'', %s, ''%s'', ''%s'', ''%s'')',
-                    table_store, t_match_id,obj ->> 'tournament_id', obj ->> 'tmatch_date',obj ->> 'tmatch_reportingtime', obj ->> 'tmatch_teams', obj ->> 'tmatch_no',obj ->> 'tmatch_status', obj ->> 'tmatchfield_name',
+       query := format('INSERT INTO %s(tmatch_id,tournament_id,  tmatch_date, tmatch_reportingtime,tmatch_team1,tmatch_team2,tmatch_status,tmatchfield_name,tmatchfield_gmap)
+                     VALUES (''%s'',''%s'', ''%s'', ''%s'',''%s'', ''%s'',''%s'',''%s'', ''%s'')',
+                    table_store, t_match_id,obj ->> 'tournament_id', obj ->> 'tmatch_date',obj ->> 'tmatch_reportingtime', obj ->> 'tmatch_team1',obj ->> 'tmatch_team2', obj ->> 'tmatch_no',obj ->> 'tmatch_status', obj ->> 'tmatchfield_name',
                      obj ->> 'tmatchfield_gmap');
+
     execute query;
-    raise notice '%',query;
-    raise notice '_____________________ %',table_store;
---         raise notice '%',tmatch_date_to_char;
+--     raise notice '%',query;
+    team_id1 := obj ->> 'tmatch_team1';
+    team_id2 := obj ->> 'tmatch_team2';
 
+ -- check if tournament_id is in tournament_perform column of team table
+   IF NOT EXISTS (
+      SELECT 1
+FROM team
+WHERE ((team_id = team_id1 OR team_id = team_id2)
+  AND NOT id_store = ANY(ARRAY(SELECT quote_literal(tp) FROM unnest(tournament_perform) AS tp)))
 
-raise notice ':::::::::::::::::::::::::::';
+    ) THEN
+      query1 := format('UPDATE team SET tournament_perform = array_append(tournament_perform, %L) WHERE team_id = %L OR team_id = %L', id_store, team_id1, team_id2);
+      EXECUTE query1;
+    END IF;
+
     END LOOP;
 END;
 $$ LANGUAGE plpgsql;
 
 
 SELECT tournament_schedule(ARRAY[
-'{"tournament_id":"470120230327065356771",
-                                  "tmatch_date": "2023-03-01 15:20:00",
-                                  "tmatch_reportingtime": "02:45",
-                                  "tmatch_teams":{"TeamId1": "0322045912807866", "TeamId2": "0322045932619415"},
-"tmatch_no":"3",
+'{"tournament_id":"482820230330042433006",
+  "tmatch_date": "2024-02-02 15:20:00",
+  "tmatch_reportingtime": "02:48",
+"tmatch_team1":"219120230327074511488",
+"tmatch_team2":"340820230327074542496",
+"tmatch_no":"2",
 "tmatch_status":"won 5 matches",
 "tmatchfield_name":"Army Stadium",
 "tmatchfield_gmap":"somelink.com"
 }'::json,
-'{"tournament_id":"470120230327065356771",
-"tmatch_date": "2022-04-02 15:20:00",
+'{"tournament_id":"482820230330042433006",
+"tmatch_date": "2024-02-03 15:20:00",
 "tmatch_reportingtime": "02:45",
-"tmatch_teams":{"TeamId1": "0322045912807866", "TeamId2": "0322045932619415"},
-"tmatch_no":"3",
+"tmatch_team1":"340820230327074542496",
+"tmatch_team2":"219120230327074511488",
+"tmatch_no":"1",
 "tmatch_status":"won 5 matches",
 "tmatchfield_name":"Army Stadium",
 "tmatchfield_gmap":"somelink.com"}'::json]
@@ -91,19 +79,9 @@ SELECT tournament_schedule(ARRAY[
 
 select * from tournament;
 
-create table "470120230327065356771_tournament_schedule" (
-Tmatch_id varchar(255) primary key,
-tournament_ID varchar(30) ,
-TMatch_Date	TIMESTAMP,
-TMatch_ReportingTime TIME,
-TMatch_teams jsonb,
-TMatch_No int,
-TMatch_Status varchar(255),
-TMatchField_name varchar(255),
-TMatchField_GMap varchar(255),
-Game_Result_Accepted varchar(255),
-foreign key(tournament_ID) references Tournament(tournament_ID));
+select * from team where team_id = '219120230327074511488';
 
-select * from "470120230327065356771_tournament_schedule";
+select * from "482820230330042433006__tournamentShedule";
 
-select * from tournament;
+
+
