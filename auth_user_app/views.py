@@ -20,7 +20,7 @@ from django.db import connection
 import json
 
 from .models import User
-from .utils import Util
+from .utils import Util,image_decoder
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 import jwt
@@ -151,20 +151,18 @@ def edit_user_profile(request):
         return Response('get data')
 
     elif request.method == 'POST':
+
+        base64_image = request.data['user_photopath']
+        image_extension = request.data['user_photopath_extension']
+        userid = request.data['userid']
+        image_url = image_decoder(base64_image, image_extension, userid)
         data = json.dumps(request.data)
+        data = json.loads(data)
+        del data['user_photopath_extension']
+        data['user_photopath'] = image_url
+        data = json.dumps(data)
 
-        # take base64 image and save it to a file
-        # imgdata = base64.b64decode(data['user_profile_pic'])
-        # filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames
-        # with open(filename, 'wb') as f:
-        #     f.write(imgdata)
-
-        # save image to database
-        # with open(filename, 'rb') as f:
-        
-
-
-
+        # query = f"select * from auth_user_app_user;"
         query = f"select update_user_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
@@ -174,7 +172,7 @@ def edit_user_profile(request):
                 return Response(
                     {
                         "status": "success",
-                        "data": "profile update success",
+                        "data": "profile updated",
                     },
                     status=status.HTTP_200_OK,
                 )

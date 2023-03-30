@@ -41,3 +41,6 @@ urlpatterns = [
 
     
 ]
+
+
+# http://127.0.0.1:8000/aggame_images/profilepic/0329043540613666.png

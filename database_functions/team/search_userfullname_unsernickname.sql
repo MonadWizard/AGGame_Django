@@ -25,6 +25,7 @@ BEGIN
     FROM (
         SELECT
             json_build_object(
+                'player_id', cricketprofile.player_id,
                 'name', cricketprofile.player_fullname,
                 'player_image',cricketprofile.player_image,
                 'playing_role',cricketprofile.playing_role,
