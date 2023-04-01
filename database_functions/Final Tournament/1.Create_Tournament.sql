@@ -39,6 +39,7 @@ BEGIN
         OrganizerPhone, Tournament_Admin, TournamentStartDate, NumberOfTeamsInGroup,
         NumberOfGroupsInTournament, groupTeamDetails, Tournament_MatchConfiguration);
     EXECUTE query;
+    raise notice 'tournament id::::::::::: %',Tournament_ID;
 
     PERFORM create_dynamic_table_for_tournament(Tournament_ID);
 
@@ -50,7 +51,7 @@ $$ LANGUAGE plpgsql;
 
 SELECT TournamentCreation(
     '{
-      "Tournament_Owner": "0327050758707019",
+      "Tournament_Owner": "0322045912807866",
       "Tournament_logo": "http://example.com/logo.png",
       "Tournament_Name": "Example Tournament",
       "TournamentMatchType": "Single Elimination",
