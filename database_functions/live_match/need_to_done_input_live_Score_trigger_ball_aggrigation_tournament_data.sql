@@ -1,13 +1,13 @@
-select * from "487620230331180822761__BByBowlerAggrigation";
-select * from "487620230331180822761__tournamentShedule";
+select * from "430920230402062942220__BByBatsmanAggrigation";
+select * from "430920230402062942220__tournamentShedule";
 
 select * from cricketprofile;
 
 -- for regular ball run taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"0322045932619415","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "runTaken": "7"
                         }');
@@ -15,9 +15,9 @@ select bowling_aggrigation('{
 
 -- for 1st time no-ball taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"0322045932619415","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "runNoBall": "1",
                         "byRunsOnNoBall": "2"
@@ -25,9 +25,9 @@ select bowling_aggrigation('{
 
 -- for after no-ball right ball run taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "isAfterNoBall": true,
                         "isNoBall" : false,
@@ -38,9 +38,9 @@ select bowling_aggrigation('{
 
 -- for again no-ball taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "isAfterNoBall": true,
                         "isNoBall" : true,
@@ -54,9 +54,9 @@ select bowling_aggrigation('{
 
 -- for again wide ball taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "isAfterNoBall": true,
                         "isWideBall" : true,
@@ -72,9 +72,9 @@ select bowling_aggrigation('{
 
 -- for 1st time wide-ball taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "runWideBall": "1",
                         "byRunsOnWideBall": "8",
@@ -86,9 +86,9 @@ select bowling_aggrigation('{
 
 -- for legBy taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "runsOnLegBy": "8",
                         "whereRunTaken": "any where"
@@ -99,9 +99,9 @@ select bowling_aggrigation('{
 
 -- for OverThrow taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "isOverThrow": true,
                         "byRunsOnOverThrow": "8",
@@ -113,9 +113,9 @@ select bowling_aggrigation('{
 
 -- for CatchDrop taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "catchDroppedBy": {"playerId":"234567", "playerName": "pagol"},
                         "catchDropedAt" : "any wherer"
@@ -126,9 +126,9 @@ select bowling_aggrigation('{
 
 -- for Bowled-out / LBW / Stumped/ Caught-Behind taken
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "wicketsTaken": "1",
                         "WicketType" : "LBW" ,
@@ -140,9 +140,9 @@ select bowling_aggrigation('{
 
 -- for spectaculorCatchFielding taken          -- update last column
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "spectaculorCatchFielding" : "1"
                         }');
@@ -151,9 +151,9 @@ select bowling_aggrigation('{
 -- for situation taken          -- update last column
 
 select bowling_aggrigation('{
-                        "tournamentId": "487620230331180822761",
+                        "tournamentId": "430920230402062942220",
                         "matchId":"1111",
-                        "bowling": {"id":"2345678","name":"pagol"},
+                        "bowling": {"id":"0328045156808896","name":"pagol"},
 
                         "situation" : "nothing nothing"
                         }');

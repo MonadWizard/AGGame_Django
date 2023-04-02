@@ -1,7 +1,7 @@
 drop function input_live_Score_trigger_ball_aggrigation(passing_data jsonb);
 drop function bowling_aggrigation(passing_data jsonb);
 
-select * from "487620230331180822761__BByBowlerAggrigation";
+select * from "430920230402062942220__BByBatsmanAggrigation";
 
 
 create or replace function bowling_aggrigation(passing_data jsonb)

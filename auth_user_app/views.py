@@ -161,9 +161,10 @@ def edit_user_profile(request):
         del data['user_photopath_extension']
         data['user_photopath'] = image_url
         data = json.dumps(data)
+        print('data::::',data)
 
         # query = f"select * from auth_user_app_user;"
-        query = f"select update_user_profile('{data}'::jsonb);"
+        query = f"select update_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)

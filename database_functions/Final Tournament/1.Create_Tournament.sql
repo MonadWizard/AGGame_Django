@@ -51,7 +51,7 @@ $$ LANGUAGE plpgsql;
 
 SELECT TournamentCreation(
     '{
-      "Tournament_Owner": "0322045912807866",
+      "Tournament_Owner": "0329043540613666",
       "Tournament_logo": "http://example.com/logo.png",
       "Tournament_Name": "Example Tournament",
       "TournamentMatchType": "Single Elimination",
