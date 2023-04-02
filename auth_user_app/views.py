@@ -74,7 +74,7 @@ class SignUpMailVerifyRequestView(views.APIView):
 
         Util.send_email(data)
 
-        return Response(data, status=status.HTTP_201_CREATED)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class VerifyEmailCOmpleteSignUpView(views.APIView):
