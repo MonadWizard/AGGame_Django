@@ -16,7 +16,7 @@ end;
 $$
 language plpgsql;
 
-select get_team_list_by_creatorId('0328045156808896','cricket');
+select get_team_list_by_creatorId('0329043540613666','cricket');
 
 select * from team;
 

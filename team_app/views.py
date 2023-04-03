@@ -12,9 +12,7 @@ def team_shedule(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select team_schedule('{data}');"
-        # print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
@@ -48,16 +46,16 @@ def get_team_basic_data(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select get_team_basic_data('{data}');"
-        print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -84,16 +82,16 @@ def get_team_stats(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select get_team_stats('{data}');"
-        print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -123,16 +121,16 @@ def team_player_list(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select team_player_list('{data}');"
-        print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -162,16 +160,16 @@ def get_team_stats(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select get_team_stats('{data}');"
-        # print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -200,16 +198,11 @@ def upsert_team(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        # print("data::::::::::::",data)
         query = f"select upsert_team('{data}');"
-        print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                # row = cursor.fetchone()
-                # row = json.loads(row[0])
                 return Response(
                     {
                         "status": "success",
@@ -239,16 +232,11 @@ def update_player_info_in_team(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        # print("data::::::::::::",data)
         query = f"select upsert_team('{data}');"
-        print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                # row = cursor.fetchone()
-                # row = json.loads(row[0])
                 return Response(
                     {
                         "status": "success",
@@ -277,16 +265,20 @@ def team_player_list(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select team_player_list('{data}');"
-        # print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
                 # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+
+
                 return Response(
                     {
                         "status": "success",
@@ -320,9 +312,11 @@ def get_team_info(request, user_id, limit, offset):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -359,9 +353,11 @@ def name_Search(request, user_name):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",

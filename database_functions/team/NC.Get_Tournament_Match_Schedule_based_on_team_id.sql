@@ -24,9 +24,21 @@ END LOOP;
 
 
 
-   SELECT array_agg(game_datetime) INTO storing_match_data
-FROM match
-WHERE team1 = $1 OR team2 = $1;
+--    SELECT array_agg(game_datetime , game_name) INTO storing_match_data
+-- FROM match
+-- WHERE team1 = $1 OR team2 = $1;
+
+  SELECT
+    array_agg(game_datetime) AS match_datetimes,
+    array_agg(game_name) AS match_names
+INTO
+    storing_match_data
+FROM
+    match
+WHERE
+    team1 = $1 OR team2 = $1;
+
+raise notice '::::::::::::: %',storing_match_data;
 
 result = jsonb_build_object('tournament_details', result_json, 'match_datetime', jsonb_build_array(storing_match_data));
 

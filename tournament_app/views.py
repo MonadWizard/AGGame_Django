@@ -16,8 +16,7 @@ def TournamentCreation(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchone()
-                # row = json.loads(row[0])
+                
                 return Response(
                     {
                         "status": "success",
@@ -48,8 +47,11 @@ def get_tournament_details(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -83,9 +85,11 @@ def get_tournament_info(request, user_id, limit, offset):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -115,8 +119,6 @@ def tournament_schedule(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-
-        # query = f"select * from team"
 
         query = f"select tournament_schedule('{data}'::jsonb);"
         with connection.cursor() as cursor:

@@ -15,8 +15,7 @@ def MatchCreation(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchone()
-                # row = json.loads(row[0])
+
                 return Response(
                     {
                         "status": "success",
@@ -50,8 +49,12 @@ def get_team_by_specific_creator(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+
                 return Response(
                     {
                         "status": "success",
@@ -85,8 +88,11 @@ def get_all_team_list_by_game_name(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -114,16 +120,16 @@ def team_and_player_info(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        # print("data::::::::::::",data)
         query = f"select team_and_player_info('{data}');"
-        # print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",

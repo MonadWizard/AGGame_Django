@@ -168,8 +168,6 @@ def edit_user_profile(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchone()
-                # row = json.loads(row[0])
                 return Response(
                     {
                         "status": "success",
@@ -199,8 +197,6 @@ def update_interested_sports(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchone()
-                # row = json.loads(row[0])
                 return Response(
                     {
                         "status": "success",
@@ -231,9 +227,11 @@ def get_profile_info(request, user_id):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                # row = cursor.fetchall()
-                row = cursor.fetchone()
-                row = json.loads(row[0])
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
