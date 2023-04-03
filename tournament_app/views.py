@@ -115,7 +115,10 @@ def tournament_schedule(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        query = f"select tournament_schedule('{data}');"
+
+        # query = f"select * from team"
+
+        query = f"select tournament_schedule('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
