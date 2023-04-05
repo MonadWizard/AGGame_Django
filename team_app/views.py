@@ -202,7 +202,7 @@ def upsert_team(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        query = f"select upsert_team('{data}');"
+        query = f"select Upsert_team_basic_info('{data}');"
 
         with connection.cursor() as cursor:
             try:
