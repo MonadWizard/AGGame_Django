@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import MatchCreation,get_team_by_specific_creator,\
-    get_all_team_list_by_game_name,team_and_player_info,upcomming_game_list
+    get_all_team_list_by_game_name,team_and_player_info,upcomming_game_list, game_search
 
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path("team_and_player_info/",team_and_player_info,name="team_and_player_info"),
 
     path("upcomming_game_list/",upcomming_game_list,name="upcomming_game_list"),
+    path("game_search/<str:data>/", game_search, name="tournament_search"),
 
 ]

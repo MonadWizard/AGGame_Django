@@ -190,4 +190,41 @@ def upcomming_game_list(request):
 
 
 
+@api_view(['GET','POST'])
+def game_search(request, data):
+
+    if request.method =='GET':
+        data = data
+        query = f"select Match_search('{data}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
+
+
 
