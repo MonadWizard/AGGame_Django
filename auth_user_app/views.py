@@ -260,6 +260,80 @@ def get_profile_info(request, user_id):
 
 
 
+@api_view(['GET','POST'])
+def check_mail(request, user_mail):
+
+    if request.method =='GET':
+        data = user_mail
+        query = f"select check_email_existence('{data}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
+
+
+
+
+@api_view(['GET','POST'])
+def check_username(request, username):
+
+    if request.method =='GET':
+        data = username
+        query = f"select check_username_existence('{data}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
 
 
 
