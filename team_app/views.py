@@ -207,10 +207,15 @@ def upsert_team(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
-                        "data": "update completely complete",
+                        "data": row,
                     },
                     status=status.HTTP_200_OK,
                 )
