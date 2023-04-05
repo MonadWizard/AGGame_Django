@@ -45,7 +45,7 @@ def get_team_by_specific_creator(request):
         # data = json.dumps(request.data)
         creator_id = request.data['creator_id']
         sport = request.data['sport']
-        query = f"select get_team_list_by_creatorId('{creator_id}','{sport}');"
+        query = f"select get_all_Team_list_made_by_the_specific_creator('{creator_id}','{sport}');"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
@@ -120,7 +120,7 @@ def team_and_player_info(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        query = f"select team_and_player_info('{data}');"
+        query = f"select get_player_team_info_using_teamid('{data}');"
 
         with connection.cursor() as cursor:
             try:
@@ -151,6 +151,42 @@ def team_and_player_info(request):
 
 
 
+@api_view(['GET','POST'])
+def upcomming_game_list(request):
+    if request.method =='GET':
+        return Response('get data')
+
+    elif request.method == 'POST':
+        data = json.dumps(request.data)
+
+        print('data:::::::::',data)
+        query = f"select upcomming_game_list('{data}'::jsonb);"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+        
 
 
 

@@ -12,12 +12,16 @@ def team_shedule(request):
 
     elif request.method == 'POST':
         data = request.data['team_id']
-        query = f"select team_schedule('{data}');"
+        query = f"select Get_Tournament_Match_Schedule_based_on_team_id('{data}');"
 
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                row = cursor.fetchall()
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
                 return Response(
                     {
                         "status": "success",
@@ -232,7 +236,7 @@ def update_player_info_in_team(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        query = f"select upsert_team('{data}');"
+        query = f"select update_Player_in_team_info('{data}');"
 
         with connection.cursor() as cursor:
             try:
@@ -307,7 +311,7 @@ def get_team_info(request, user_id, limit, offset):
         limit = limit
         offset = offset
 
-        query = f"select get_team_info('{user_id}',{limit},{offset});"
+        query = f"select get_Team_details_based_on_team_Creator_id('{user_id}',{limit},{offset});"
 
         with connection.cursor() as cursor:
             try:
@@ -348,7 +352,7 @@ def name_Search(request, user_name):
     if request.method =='GET':
         user_name = user_name
         
-        query = f"select name_Search('{user_name}');"
+        query = f"select search_userfullname_unsernickname('{user_name}');"
 
         with connection.cursor() as cursor:
             try:

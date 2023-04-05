@@ -193,7 +193,7 @@ def update_interested_sports(request):
 
     elif request.method == 'POST':
         data = json.dumps(request.data)
-        query = f"select profile_interested_sports('{data}'::jsonb);"
+        query = f"select edit_profile_interested_sports('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)

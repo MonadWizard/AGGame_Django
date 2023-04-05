@@ -16,7 +16,6 @@ urlpatterns = [
     path('team_player_list/', team_player_list, name='team_player_list'),
 
     path('get_team_info/<str:user_id>/<int:limit>/<int:offset>/', get_team_info, name='get_team_info'),
-
     path('name_Search/<str:user_name>/', name_Search, name='name_Search'),
 
 
