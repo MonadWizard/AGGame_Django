@@ -1,5 +1,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+from auth_user_app.models import User
+from asgiref.sync import sync_to_async
 
 class SportsScoreConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -32,15 +34,22 @@ class SportsScoreConsumer(AsyncWebsocketConsumer):
         # Parse the incoming data
         text_data_json = json.loads(text_data)
 
-
-        allowed_users = 'userid234'
-        
+        # Check if the user is allowed to send data
+        try:
+            user = await sync_to_async(User.objects.get)(userid=self.connect_user)
+            if 'Scorekeeper' in user.user_type_flag:
+                allowed_users = self.connect_user
+            else:
+                allowed_users = None            
+        except User.DoesNotExist:
+            allowed_users = 'Not Scorekeeper'
+                
         # Only allow the user who initiated the WebSocket connection to send data
         if self.connect_user != allowed_users:
             return
 
         score = text_data_json['score']
-        print(f"\nOn receive: {self.room_group_name}, user: {self.connect_user}, match: {self.connect_match}\n")
+        # print(f"\nOn receive: {self.room_group_name}, user: {self.connect_user}, match: {self.connect_match}\n")
 
         # Broadcast the score to all users in the group
         await self.channel_layer.group_send(
