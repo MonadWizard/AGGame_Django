@@ -33,6 +33,10 @@ from django.http import HttpResponsePermanentRedirect
 import os
 import datetime 
 
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
+from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken
+
+
 
 
 class SignUpMailVerifyRequestView(views.APIView):
@@ -120,17 +124,27 @@ class VerifyEmailCOmpleteSignUpView(views.APIView):
 
 class LogoutAPIView(generics.GenericAPIView):
     serializer_class = LogoutSerializer
-
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
-
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        token = serializer.validated_data['refresh']
 
-        return Response("successfully logout",status=status.HTTP_204_NO_CONTENT)
+        try:
+            RefreshToken(token).blacklist()
+        except (TokenError, InvalidToken):
+            pass
 
+        # Invalidate the access token
+        access_token = request.auth
+        if access_token is not None:
+            try:
+                OutstandingToken.objects.filter(token=access_token).delete()
+            except TokenError:
+                pass
+
+        return Response({'message': 'User successfully logged out.'}, status=status.HTTP_200_OK)
 
 
 class LoginAPIView(generics.GenericAPIView):
