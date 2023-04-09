@@ -9,33 +9,51 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-CORE_APPS = [
+# CORE_APPS = [
+#     'django.contrib.admin',
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+    
+# ]
+
+# PROJECT_APPS = [
+#     'auth_user_app',
+#     'team_app',
+#     'game_app',
+#     'tournament_app',
+#     'home_app',
+#     'dashboard_app',
+# ]
+
+# THIRD_PARTY_APPS = [
+#     'channels',
+#     'daphne',
+#     'rest_framework',
+#     'rest_framework_simplejwt.token_blacklist',
+# ]
+
+# INSTALLED_APPS =  THIRD_PARTY_APPS + CORE_APPS + PROJECT_APPS
+
+INSTALLED_APPS =  [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-]
-
-PROJECT_APPS = [
     'auth_user_app',
     'team_app',
     'game_app',
     'tournament_app',
     'home_app',
-    'dashboard_app',
-]
-
-THIRD_PARTY_APPS = [
-    'channels',
-    'daphne',
+    'dashboard_app','channels',
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
-]
+    'rest_framework_simplejwt.token_blacklist',]
 
-INSTALLED_APPS =  THIRD_PARTY_APPS + CORE_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

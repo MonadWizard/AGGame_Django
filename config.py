@@ -29,3 +29,22 @@ os.environ['EMAIL_SERVER_EMAIL_PASSWORD'] = 'jjNBHyt&^$536554'
 
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+
+
+INSTALLED_APPS =  ['django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'auth_user_app',
+    'team_app',
+    'game_app',
+    'tournament_app',
+    'home_app',
+    'dashboard_app','channels',
+    'daphne',
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',]
