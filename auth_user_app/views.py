@@ -178,7 +178,7 @@ def edit_user_profile(request):
         print('data::::',data)
 
         # query = f"select * from auth_user_app_user;"
-        query = f"select update_profile('{data}'::jsonb);"
+        query = f"select edit_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
