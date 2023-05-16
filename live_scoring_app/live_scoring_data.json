@@ -1,0 +1,460 @@
+// 2-m@y-2033
+-- for regular ball run taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0413041826726825","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0413041826726825","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0413041826726825","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "2",
+
+                        "situation" : "nothing nothing",
+
+                        "whereRunTaken": "Square_Deep_Forward",
+                        "runTaken": "2",
+
+
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+
+                        }');
+
+
+-- for 1st time no-ball taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "runNoBall": "1",
+                        "byRunsOnNoBall": "4",
+                        "whereRunTaken": "Square_Deep_Forward",
+
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+
+                        }');
+
+
+
+-- for after no-ball or wide ball >>>>>>>>right ball<<<<<<<<< run taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "isAfterNoBall": true,
+                        "isNoBall" : false,
+                        "runsTaken": "8",
+                        "whereRunTaken": "Square_Deep_Forward",
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward1"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward1"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward1"
+                            }
+                        ]
+                        }');
+
+
+-- for again no-ball taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "isAfterNoBall": true,
+                        "isNoBall" : true,
+                        "againrunNoBall": "1",
+                        "byRunsOnNoBall": "2",
+                        "whereRunTaken": "Square_Deep_Forward",
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+                        }');
+
+
+
+-- for again wide ball taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "isAfterNoBall": true,
+                        "isWideBall" : true,
+                        "againrunWideBall": "1",
+                        "byRunsOnWideBall": "1",
+                        "whereRunTaken": "Square_Deep_Forward",
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+
+                        }');
+
+
+
+
+
+-- for 1st time wide-ball taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "runWideBall": "1",
+                        "byRunsOnWideBall": "3",
+                        "whereRunTaken": "Square_Deep_Forward",
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+
+
+                        }');
+
+
+
+-- for legBy taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "runsOnLegBy": "3",
+                        "whereRunTaken": "Square_Deep_Forward",
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+
+                        }');
+
+
+
+-- for OverThrow taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0412095945432017","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0412095945432017","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0412095945432017","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "0",
+
+                        "situation" : "nothing nothing",
+
+                        "isOverThrow": true,
+                        "overThroughData": [
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            },
+                            {
+                                "runOnOverThrough": 2,
+                                "fielder": {"id":"0413084003406814","name":"pagol filder"},
+                                "whereRunTaken": "Square_Deep_Forward"
+                            }
+                        ]
+                        }');
+
+
+
+-- for CatchDrop taken .............................. issue
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0413041826726825","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0413041826726825","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0413041826726825","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "1",
+
+                        "situation" : "nothing nothing",
+
+                        "catchDroppedBy": {"playerId":"0322045912807866", "playerName": "pagol"},
+                        "catchDropedAt" : "Square_Deep_Forward",
+                        "catchDroprunTaken": "6"
+                        }');
+
+
+
+
+-- for Bowled-out / LBW / Stumped/ Caught-Behind taken
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "battingteamId" : "210020230413051223469",
+                        "fildingteamId" : "458020230413051248591",
+                        "scorrerId": "0412095945432017",
+                        "facing": {"id":"0413041826726825","name":"pagol bat"},
+                        "runner": {"id":"0412095945432017","name":"pagol runner"},
+                        "bowling": {"id":"0413041826726825","name":"pagol ball"},
+                        "isSideChange": "False",
+                        "extrarunner": {"id":"0412095945432017","name":"pagol extra runner"},
+
+                        "filder": {"id":"0413041826726825","name":"pagol filder"},
+                        "spectaculorCatchFielding" : "1",
+                        "spectaculorRunSaving" : "1",
+
+                        "situation" : "nothing nothing",
+
+                        "wicketsTaken": "1",
+                        "WicketType" : "LBW" ,
+                        "wicketWhereTaken": "field_position",
+                        "wicketTakingAssistant": {"playedName": "pagol", "playerId": "0322045912807866"}
+                        }');
+
+
+
+-- -- for spectaculorCatchFielding taken          -- update last column
+-- select input_live_score_game('{
+--                         "matchId":"123",
+--                         "scorrerId": "0322045912807866",
+--                         "facing": {"id":"2345678","name":"pagol"},
+--                         "runner": {"id":"2345679","name":"pagol1"},
+--                         "bowling": {"id":"2345677","name":"pagol2"},
+--                         "extrarunner": {"id":"23456787","name":"pagol3"},
+--                         "isSideChange": true,
+--
+--                         "spectaculorCatchFielding" : "1"
+--
+--
+--                         }');
+--
+--
+-- select input_live_score_game('{
+--                         "matchId":"123",
+--                         "scorrerId": "0322045912807866",
+--                         "facing": {"id":"2345678","name":"pagol"},
+--                         "runner": {"id":"2345679","name":"pagol1"},
+--                         "bowling": {"id":"2345677","name":"pagol2"},
+--                         "extrarunner": {"id":"23456787","name":"pagol3"},
+--                         "isSideChange": true,
+--
+--                         "situation" : "nothing nothing"
+--                         }');
+
+
+
+
+select input_live_score_game('{
+                        "matchId":"870220230501055440208",
+                        "scorrerId": "443920230429044932327",
+                        "playersAndPosition": [
+                            {
+                              "playerID": "0413084003406814",
+                              "fieldPosition": "position12",
+                              "teamID" : "210020230413051223469"
+
+                            },
+                            {
+                              "playerID": "0413041826726825",
+                              "fieldPosition": "position12",
+                              "teamID" : "210020230413051223469"
+
+                            }
+                          ]
+                        }');
+
