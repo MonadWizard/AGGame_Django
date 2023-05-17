@@ -10,20 +10,11 @@ from .serializers import (RegisterSerializer,
                         ViewUserSerializer )
 
 from rest_framework.response import Response
-<<<<<<< HEAD
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework import permissions
-from django.http import Http404
-
-from rest_framework.decorators import api_view
-=======
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import AuthenticationFailed
 from django.http import Http404
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
->>>>>>> github/production2
 from django.db import connection
 import json
 
@@ -43,11 +34,7 @@ import datetime
 
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken
-<<<<<<< HEAD
-
-=======
 from rest_framework_simplejwt.authentication import JWTAuthentication
->>>>>>> github/production2
 
 
 
@@ -172,11 +159,8 @@ class LoginAPIView(generics.GenericAPIView):
 
 
 @api_view(['GET','POST'])
-<<<<<<< HEAD
-=======
 # @authentication_classes([JWTAuthentication])
 # @permission_classes([IsAuthenticated])
->>>>>>> github/production2
 def edit_user_profile(request):
     if request.method =='GET':
         return Response('get data')

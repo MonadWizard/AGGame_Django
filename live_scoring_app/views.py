@@ -90,10 +90,10 @@ def start_match_game(request):
         return Response('get data')
 
     elif request.method == 'POST':
-        match_id = request.data['match_id']
-        # print("data::::::::::::",data)
-        query = f"select create_dynamic_table_for_game_match_start('{match_id}');"
-        # print("query::::::::::::",query)
+        data = json.dumps(request.data)
+        print("data::::::::::::",data)
+        query = f"select create_dynamic_table_for_game_match_start('{data}'::jsonb);"
+        print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
             try:
