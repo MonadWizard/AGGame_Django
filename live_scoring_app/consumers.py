@@ -3,6 +3,9 @@ import json
 from auth_user_app.models import User
 from asgiref.sync import sync_to_async
 
+from django.contrib.auth import get_user_model
+
+
 class SportsScoreConsumer(AsyncWebsocketConsumer):
     async def connect(self):
 
@@ -43,7 +46,7 @@ class SportsScoreConsumer(AsyncWebsocketConsumer):
                 allowed_users = None            
         except User.DoesNotExist:
             allowed_users = 'Not Scorekeeper'
-                
+            
         # Only allow the user who initiated the WebSocket connection to send data
         if self.connect_user != allowed_users:
             return
@@ -76,7 +79,17 @@ class SportsScoreConsumer(AsyncWebsocketConsumer):
 class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
     async def connect(self):
 
-        self.connect_user = self.scope["url_route"]["kwargs"]["userid"]
+        # self.connect_user = self.scope["url_route"]["kwargs"]["userid"]
+
+        if self.scope["user"].is_anonymous:
+            print("Anonymous user")
+            self.connect_user = None
+            # pass
+        else:
+            user = self.scope["user"]
+            print("Authenticated user : ", user)
+            self.connect_user = user.userid
+
         self.connect_match = self.scope["url_route"]["kwargs"]["matchid"]
 
         self.room_name = self.connect_match
@@ -86,6 +99,7 @@ class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
             self.room_group_name, 
             self.channel_name)
         await self.accept()
+
 
         # Send a confirmation message to the user
         await self.send(text_data=json.dumps({
@@ -105,18 +119,24 @@ class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
 
         # Check if the user is allowed to send data
+        print("receive ::::::: ", "In receved")
         try:
-            user = await sync_to_async(User.objects.get)(userid=self.connect_user)
-            if 'Scorekeeper' in user.user_type_flag:
+            # user = await sync_to_async(User.objects.get)(userid=self.connect_user)
+            if self.connect_user is not None:
                 allowed_users = self.connect_user
+                print("Allowed user : ", allowed_users)
             else:
-                allowed_users = None            
+                allowed_users = None
+                print("NOT allowed user : ", allowed_users)
+                return
+            
         except User.DoesNotExist:
             allowed_users = 'Not Scorekeeper'
+            print("Not Scorekeeper")
                 
-        # Only allow the user who initiated the WebSocket connection to send data
-        if self.connect_user != allowed_users:
-            return
+        # # Only allow the user who initiated the WebSocket connection to send data
+        # if self.connect_user != allowed_users:
+        #     return
 
         score = text_data_json['score']
         # print(f"\nOn receive: {self.room_group_name}, user: {self.connect_user}, match: {self.connect_match}\n")
@@ -139,5 +159,38 @@ class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'score': score
         }))
+
+
+
+class YourConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        if self.scope["user"].is_anonymous:
+            # Handle anonymous user
+            print("Anonymous user")
+            pass
+        else:
+            # Handle authenticated user
+            user = self.scope["user"]
+            print("Authenticated user : ", user)
+            # Perform any necessary actions with the authenticated user
+            
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        # Disconnect logic here
+        pass
+
+    async def receive(self, text_data):
+        # Receive and process incoming messages
+        pass
+
+
+
+
+
+
+
+
+
 
 

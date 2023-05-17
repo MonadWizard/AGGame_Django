@@ -32,6 +32,7 @@ THIRD_PARTY_APPS = [
     'channels',
     'daphne',
     'rest_framework',
+<<<<<<< HEAD
     'rest_framework_simplejwt.token_blacklist',
 ]
 
@@ -53,6 +54,20 @@ INSTALLED_APPS =  THIRD_PARTY_APPS + CORE_APPS + PROJECT_APPS
 #     'dashboard_app','channels',
 #     'rest_framework',
 #     'rest_framework_simplejwt.token_blacklist',]
+=======
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+]
+
+
+INSTALLED_APPS =  THIRD_PARTY_APPS + CORE_APPS + PROJECT_APPS
+>>>>>>> github/production2
 
 
 MIDDLEWARE = [
@@ -125,8 +140,13 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
+<<<<<<< HEAD
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+=======
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1,minutes=10),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=10),
+>>>>>>> github/production2
     'USER_ID_FIELD': 'userid',
 }
 
