@@ -8,6 +8,6 @@ websocket_urlpatterns = [
     path('live_score/<str:userid>/<str:matchid>/', consumers.SportsScoreConsumer.as_asgi()),
     path('live_score_auth/<str:matchid>/', JWTAuthMiddleware(consumers.SportsScoreConsumerAuth.as_asgi())),
 
-    path('live_score_jwt_auth/', JWTAuthMiddleware(consumers.YourConsumer.as_asgi())),
+    path('live_score_jwt_sync/<str:matchid>/', JWTAuthMiddleware(consumers.SportsScoreConsumersync.as_asgi())),
 
 ]
