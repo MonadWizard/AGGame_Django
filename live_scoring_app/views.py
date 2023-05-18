@@ -126,7 +126,7 @@ def input_live_score_game(request):
     elif request.method == 'POST':
         data = json.dumps(request.data)
         # print("data::::::::::::",data)
-        query = f"select input_live_score_game('{data}');"
+        query = f"select input_live_score_game_update('{data}');"
         # print("query::::::::::::",query)
 
         with connection.cursor() as cursor:
