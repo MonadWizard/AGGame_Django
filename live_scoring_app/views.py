@@ -154,3 +154,39 @@ def input_live_score_game(request):
             
 
 
+
+
+
+
+@api_view(['GET','POST'])
+def ball_type(request):
+    if request.method =='GET':
+        return Response('get data')
+
+    elif request.method == 'POST':
+        data = json.dumps(request.data)
+        # print("data::::::::::::",data)
+        query = f"select input_live_sore_ball_type('{data}'::jsonb);"
+        # print("query::::::::::::",query)
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                # row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": "successfully updated ball type",
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+        
