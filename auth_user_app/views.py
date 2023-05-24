@@ -179,12 +179,12 @@ def edit_user_profile(request):
             image_urls = image_urls + [image_url]
         data['user_photopath'] = image_urls
         data = json.dumps(data)
-        print('data::::::::::::',data)
+        # print('data::::::::::::',data)
 
         query = f"select edit_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
-                # cursor.execute(query)
+                cursor.execute(query)
                 return Response(
                     {
                         "status": "success",
