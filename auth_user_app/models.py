@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_state_divition = models.CharField(max_length=200, blank=True, null=True)
     user_playing_city = models.CharField(max_length=200, blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
-    user_photopath = models.CharField(max_length=200, blank=True, null=True)
+    user_photopath = ArrayField(models.CharField(max_length=200, blank=True, null=True),default=list, blank=True, null=True)
     user_life_history = models.JSONField(blank=True, null=True)
     user_playing_sports = models.JSONField(blank=True, null=True)
     user_interested_sports = models.JSONField(blank=True, null=True)

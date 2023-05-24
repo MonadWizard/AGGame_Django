@@ -167,22 +167,24 @@ def edit_user_profile(request):
 
     elif request.method == 'POST':
 
-        base64_image = request.data['user_photopath']
-        image_extension = request.data['user_photopath_extension']
+        base64_images = request.data['user_photopath']
+        # image_extension = request.data['user_photopath_extension']
         userid = request.data['userid']
-        image_url = image_decoder(base64_image, image_extension, userid)
-        data = json.dumps(request.data)
-        data = json.loads(data)
-        del data['user_photopath_extension']
-        data['user_photopath'] = image_url
+        image_urls = []
+        for image_extension, base64_image in base64_images.items():
+            # take last part from splitted image_extension
+            image_url = image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid)
+            data = json.dumps(request.data)
+            data = json.loads(data)
+            image_urls = image_urls + [image_url]
+        data['user_photopath'] = image_urls
         data = json.dumps(data)
-        print('data::::',data)
+        print('data::::::::::::',data)
 
-        # query = f"select * from auth_user_app_user;"
         query = f"select edit_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
-                cursor.execute(query)
+                # cursor.execute(query)
                 return Response(
                     {
                         "status": "success",

@@ -3,6 +3,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 
 import threading
+import datetime
 
 
 class EmailThread(threading.Thread):
@@ -39,7 +40,9 @@ def image_decoder(base64_image, image_extension, userid):
     MEDIA_ROOT = settings.MEDIA_ROOT
     prifile_picture_path = '/profilepic/'
     path = MEDIA_ROOT + prifile_picture_path
-    imageName = str(userid)+'.'+str(image_extension)
+    # take current date and time as image name
+    dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
+    imageName = str(userid)+'_'+str(dtt)+'.'+str(image_extension)
     # Save image to file
     image.save(path+imageName, str(image_extension))
 
