@@ -19,7 +19,7 @@ from django.db import connection
 import json
 
 from .models import User
-from .utils import Util,image_decoder
+from .utils import Util,image_decoder, get_all_images_name
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 import jwt
@@ -170,20 +170,27 @@ def edit_user_profile(request):
         base64_images = request.data['user_photopath']
         # image_extension = request.data['user_photopath_extension']
         userid = request.data['userid']
-        image_urls = []
+        MEDIA_ROOT = settings.MEDIA_ROOT
+        prifile_picture_path = '/profilepic/' + str(userid) + '/'
+        path = MEDIA_ROOT + prifile_picture_path 
+
         data = json.dumps(request.data)
         data = json.loads(data)
         # handle base64_images is empty or not
         try:
             for image_extension, base64_image in base64_images.items():
                 # take last part from splitted image_extension
-                image_url = image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid)
-                image_urls = image_urls + [image_url]
-                data['user_photopath'] = image_urls
+                image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid,path)
+                # image_urls = image_urls + [image_url]
+                # data['user_photopath'] = image_urls
+                # data['user_photopath'] = path
         except:
             pass
-        data['user_photopath'] = image_urls
+        # data['user_photopath'] = image_urls
+        data['user_photopath'] = prifile_picture_path
         data = json.dumps(data)
+        print('data::::::::::::',data)
+
         query = f"select edit_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
@@ -207,13 +214,41 @@ def edit_user_profile(request):
 
 
 @api_view(['GET','POST'])
-def update_interested_sports(request):
+def update_playing_sports(request):
     if request.method =='GET':
         return Response('get data')
 
     elif request.method == 'POST':
+        # initial ['player_image']
+        base64_images = request.data['user_playing_sports'][0]['player_image']
+        # image_extension = request.data['user_photopath_extension']
+        userid = request.data['userid']
+        MEDIA_ROOT = settings.MEDIA_ROOT
+        playingsports_picture_path = '/playingsports/' + str(userid) + '/'
+        path = MEDIA_ROOT + playingsports_picture_path
+
         data = json.dumps(request.data)
-        query = f"select edit_profile_interested_sports('{data}'::jsonb);"
+        data = json.loads(data)
+        # handle base64_images is empty or not
+        try:
+            for image_extension, base64_image in base64_images.items():
+                # take last part from splitted image_extension
+                image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid,path)
+                # image_urls = image_urls + [image_url]
+                # data['user_photopath'] = image_urls
+                # data['user_photopath'] = path
+        except:
+            pass
+        # data['user_photopath'] = image_urls
+        data['user_playing_sports'][0]['player_image'] = playingsports_picture_path
+
+
+        data = json.dumps(data)
+        print('data::::::::::::',data)
+        
+        
+        # query = f"select edit_profile_interested_sports('{data}'::jsonb);"
+        query = f"select edit_profile_playing_sports('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
@@ -276,7 +311,59 @@ def get_profile_info(request, user_id):
             
 
 
-    
+
+
+
+
+# get all image url from file location
+
+
+@api_view(['GET','POST'])
+def get_image(request, table_name,user_id):
+
+    if request.method =='GET':
+        userid = user_id
+        tablename = table_name
+        # query = f"select get_profile_info('{data}');"
+        query = f"select image_path('{tablename}','{userid}');"
+        print('query::::::::::::',query)
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                row = cursor.fetchone()[0]
+                try:
+                    images = get_all_images_name(row)
+                except:
+                    images = []
+
+                return Response(
+                    {
+                        "status": "success",
+                        "data": images,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
+
+            
+
+
+
+
+
 
 
 

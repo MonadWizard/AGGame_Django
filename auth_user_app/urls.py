@@ -4,10 +4,12 @@ from .views import  (SignUpMailVerifyRequestView,
                     LoginAPIView,
                     LogoutAPIView,
                     edit_user_profile,
-                    update_interested_sports,
-                    get_profile_info,check_username,check_mail,
+                    update_playing_sports,
+                    get_profile_info,
+                    check_username,
+                    check_mail,
+                    get_image,
                     
-
                     SetNewPasswordAPIView,
                     UpdateRegisterView,
                     PasswordTokenCheckAPI,
@@ -26,8 +28,9 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('edit_profile/', edit_user_profile, name='edit_user_profile'),
-    path('update_interested_sports/', update_interested_sports, name='update_interested_sports'),
+    path('update_playing_sports/', update_playing_sports, name='update_interested_sports'),
     path('get_profile_info/<str:user_id>/', get_profile_info, name='get_profile_info'),
+    path('get_image/<str:table_name>/<str:user_id>/', get_image, name='get_image'),
 
     path('check_mail/<str:user_mail>/', check_mail, name='check_mail'),
     path('check_username/<str:username>/', check_username, name='check_username'),

@@ -27,26 +27,47 @@ class Util:
 import base64
 from PIL import Image
 import io
+import os
 
 
-def image_decoder(base64_image, image_extension, userid):
+def image_decoder(base64_image, image_extension, userid,path):
+
+
+    directory = path
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print('directory created')
+    else:
+        print('directory already exists')
+
+    print('path::::', path)
+    
     # Decode base64 string to bytes
     image_data = base64.b64decode(base64_image)
 
     # Open image using PIL
     image = Image.open(io.BytesIO(image_data))
 
-    # path
-    MEDIA_ROOT = settings.MEDIA_ROOT
-    prifile_picture_path = '/profilepic/'
-    path = MEDIA_ROOT + prifile_picture_path
-    # take current date and time as image name
+#    # path
+    # MEDIA_ROOT = settings.MEDIA_ROOT
+    # prifile_picture_path = '/profilepic/'
+    # path = MEDIA_ROOT + prifile_picture_path + str(userid)
+#    # take current date and time as image name
     dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
     imageName = str(userid)+'_'+str(dtt)+'.'+str(image_extension)
     # Save image to file
     image.save(path+imageName, str(image_extension))
+    print('path::::', path)
+    # return str(path)
 
-    return str(prifile_picture_path+imageName)
 
+
+
+def get_all_images_name(path):
+    file_names = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            file_names.append(path+file)
+    return file_names
 
 
