@@ -242,10 +242,8 @@ def update_playing_sports(request):
         # data['user_photopath'] = image_urls
         data['user_playing_sports'][0]['player_image'] = playingsports_picture_path
 
-
         data = json.dumps(data)
-        print('data::::::::::::',data)
-        
+        # print('data::::::::::::',data)
         
         # query = f"select edit_profile_interested_sports('{data}'::jsonb);"
         query = f"select edit_profile_playing_sports('{data}'::jsonb);"

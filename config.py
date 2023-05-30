@@ -3,9 +3,8 @@ import os
 # database config
 os.environ['DB_NAME'] = 'aggamedb'
 os.environ['DB_USERNAME'] = 'aggame'
-os.environ['DB_PASSWORD'] = '?!aggame'
+os.environ['DB_PASSWORD'] = 'L:>(6]nkYw8se&)UQ{'
 
-# os.environ['DB_HOST'] = '192.168.1.14'
 # os.environ['DB_HOST'] = '103.19.131.204'
 # os.environ['DB_PORT'] = '9999'
 os.environ['DB_HOST'] = 'localhost'
@@ -31,7 +30,6 @@ os.environ['EMAIL_SERVER_EMAIL_PASSWORD'] = 'jjNBHyt&^$536554'
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-
 
 
 
