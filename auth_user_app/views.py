@@ -322,24 +322,16 @@ def get_image(request, table_name,user_id):
     if request.method =='GET':
         userid = user_id
         tablename = table_name
-        # query = f"select get_profile_info('{data}');"
         query = f"select image_path('{tablename}','{userid}');"
-        print('query::::::::::::',query)
-
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
                 row = cursor.fetchone()[0]
-                print('row::::::::::::',row)
                 try:
                     images = get_all_images_name(row)
                 except:
                     images = []
-                images = get_all_images_name(row)
-                
-                
-                print('images::::::::::::',images)
-
+                # images = get_all_images_name(row)
                 return Response(
                     {
                         "status": "success",
@@ -357,11 +349,49 @@ def get_image(request, table_name,user_id):
                     status=status.HTTP_406_NOT_ACCEPTABLE,
                 )
 
+    elif request.method == 'POST':
+        return Response('post data')
+
+
+
+
+
+
+@api_view(['GET','POST'])
+def get_playing_sports(request, sports_name,user_id):
+
+    if request.method =='GET':
+        user_id = user_id
+        sports_name = sports_name
+        query = f"select get_playing_sports_data('{sports_name}','{user_id}');"
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
 
     elif request.method == 'POST':
         return Response('post data')
 
-            
 
 
 
