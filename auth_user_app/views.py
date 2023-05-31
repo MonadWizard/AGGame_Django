@@ -220,27 +220,31 @@ def update_playing_sports(request):
 
     elif request.method == 'POST':
         # initial ['player_image']
-        base64_images = request.data['user_playing_sports'][0]['player_image']
-        # image_extension = request.data['user_photopath_extension']
+        data = json.dumps(request.data)
+        data = json.loads(data)
+
         userid = request.data['userid']
         MEDIA_ROOT = settings.MEDIA_ROOT
         playingsports_picture_path = '/playingsports/' + str(userid) + '/'
         path = MEDIA_ROOT + playingsports_picture_path
 
-        data = json.dumps(request.data)
-        data = json.loads(data)
-        # handle base64_images is empty or not
-        try:
-            for image_extension, base64_image in base64_images.items():
-                # take last part from splitted image_extension
-                image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid,path)
-                # image_urls = image_urls + [image_url]
-                # data['user_photopath'] = image_urls
-                # data['user_photopath'] = path
-        except:
-            pass
-        # data['user_photopath'] = image_urls
+        if 'player_image' in request.data['user_playing_sports'][0]:
+            base64_images = request.data['user_playing_sports'][0]['player_image']
+            # image_extension = request.data['user_photopath_extension']
+
+            # handle base64_images is empty or not
+            try:
+                for image_extension, base64_image in base64_images.items():
+                    # take last part from splitted image_extension
+                    image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid,path)
+                    # image_urls = image_urls + [image_url]
+                    # data['user_photopath'] = image_urls
+                    # data['user_photopath'] = path
+            except:
+                pass
+            # data['user_photopath'] = image_urls
         data['user_playing_sports'][0]['player_image'] = playingsports_picture_path
+        
 
         data = json.dumps(data)
         # print('data::::::::::::',data)
