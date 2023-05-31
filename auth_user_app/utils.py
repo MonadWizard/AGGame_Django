@@ -64,8 +64,10 @@ def image_decoder(base64_image, image_extension, userid,path):
 
 
 def get_all_images_name(path):
+
+    MEDIA_ROOT = settings.MEDIA_ROOT
     file_names = []
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(MEDIA_ROOT + path):
         for file in files:
             file_names.append(path+file)
             print('file_names::::', file_names)
