@@ -6,6 +6,7 @@ from .views import  (SignUpMailVerifyRequestView,
                     edit_user_profile,
                     update_playing_sports,
                     get_profile_info,
+                    check_callphone,
                     check_username,
                     check_mail,
                     get_image,
@@ -34,6 +35,7 @@ urlpatterns = [
     path('get_image/<str:table_name>/<str:user_id>/', get_image, name='get_image'),
     path('get_playing_sports/<str:sports_name>/<str:user_id>/', get_playing_sports, name='get_playing_sports'),
 
+    path('check_callphone/<str:user_callphone>/', check_callphone, name='check_callphone'),
     path('check_mail/<str:user_mail>/', check_mail, name='check_mail'),
     path('check_username/<str:username>/', check_username, name='check_username'),
 

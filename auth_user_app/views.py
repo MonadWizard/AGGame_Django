@@ -355,8 +355,6 @@ def get_image(request, table_name,user_id):
 
 
 
-
-
 @api_view(['GET','POST'])
 def get_playing_sports(request, sports_name,user_id):
 
@@ -395,6 +393,42 @@ def get_playing_sports(request, sports_name,user_id):
 
 
 
+
+@api_view(['GET','POST'])
+def check_callphone(request, user_callphone):
+
+    if request.method =='GET':
+        data = user_callphone
+        query = f"select check_callphone_existence('{data}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
 
 
 
