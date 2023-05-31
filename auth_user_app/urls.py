@@ -11,6 +11,7 @@ from .views import  (SignUpMailVerifyRequestView,
                     check_mail,
                     get_image,
                     get_playing_sports,
+                    delete_listof_carrer_highlight,
                     
                     SetNewPasswordAPIView,
                     UpdateRegisterView,
@@ -34,6 +35,7 @@ urlpatterns = [
     path('get_profile_info/<str:user_id>/', get_profile_info, name='get_profile_info'),
     path('get_image/<str:table_name>/<str:user_id>/', get_image, name='get_image'),
     path('get_playing_sports/<str:sports_name>/<str:user_id>/', get_playing_sports, name='get_playing_sports'),
+    path('delete_listof_carrer_highlight/', delete_listof_carrer_highlight, name='delete_listof_carrer_highlight'),
 
     path('check_callphone/<str:user_callphone>/', check_callphone, name='check_callphone'),
     path('check_mail/<str:user_mail>/', check_mail, name='check_mail'),
