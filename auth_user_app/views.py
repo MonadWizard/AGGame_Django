@@ -331,10 +331,13 @@ def get_image(request, table_name,user_id):
                 cursor.execute(query)
                 row = cursor.fetchone()[0]
                 print('row::::::::::::',row)
-                try:
-                    images = get_all_images_name(row)
-                except:
-                    images = []
+                # try:
+                #     images = get_all_images_name(row)
+                # except:
+                #     images = []
+                
+                images = get_all_images_name(row)
+                
                 
                 print('images::::::::::::',images)
 
