@@ -80,18 +80,6 @@ def get_all_images_name(path):
 
 def remove_list_of_images(path ,list_of_images):
 
-    # print('file removed 1::::', MEDIA_ROOT + file)
-    # print('path 1::::', MEDIA_ROOT + path)
-    # MEDIA_ROOT = settings.MEDIA_ROOT
-    # for root, dirs, files in os.walk(MEDIA_ROOT + path):
-    #     for file in files:
-    #         if file in list_of_images:
-                
-    #             os.remove(MEDIA_ROOT + file)
-    #             print('file removed::::', MEDIA_ROOT + file)
-    #             print('path::::', MEDIA_ROOT + path)
-
-
     MEDIA_ROOT = settings.MEDIA_ROOT
     for file_path in list_of_images:
         file_path = MEDIA_ROOT + file_path
