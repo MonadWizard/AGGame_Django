@@ -19,7 +19,7 @@ from django.db import connection
 import json
 
 from .models import User
-from .utils import Util,image_decoder, get_all_images_name
+from .utils import Util,image_decoder, get_all_images_name, remove_list_of_images
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 import jwt
@@ -330,12 +330,12 @@ def get_image(request, table_name,user_id):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(query)
-                row = cursor.fetchone()[0]
+                # row = cursor.fetchone()[0]
                 try:
+                    row = cursor.fetchone()[0]
                     images = get_all_images_name(row)
                 except:
                     images = []
-                # images = get_all_images_name(row)
                 return Response(
                     {
                         "status": "success",
@@ -551,6 +551,43 @@ def delete_listof_carrer_highlight(request):
 
 
 
+@api_view(['GET','POST'])
+def delete_listof_image(request):
+    if request.method =='GET':
+        return Response('get data')
+
+    elif request.method == 'POST':
+        data = json.dumps(request.data)
+        user_id = request.data['user_id']
+        where = request.data['where']
+        images = request.data['images']
+        query = f"select image_path('{where}','{user_id}');"
+        
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    path = cursor.fetchone()[0]
+                    remove_list_of_images(path, images)
+                    images = 'removing successfully image' 
+                except:
+                    images = 'faied successfully removing image'
+                return Response(
+                    {
+                        "status": "success",
+                        "data": images,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
 
 
 
