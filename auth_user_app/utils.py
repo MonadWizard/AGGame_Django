@@ -85,7 +85,9 @@ def remove_list_of_images(path ,list_of_images):
         for file in files:
             if file in list_of_images:
                 os.remove(MEDIA_ROOT + file)
-                print('file removed::::', file)
+                print('file removed::::', MEDIA_ROOT + file)
+                print('path::::', MEDIA_ROOT + path)
+
     return True
 
 
