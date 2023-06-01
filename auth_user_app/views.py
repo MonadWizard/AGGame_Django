@@ -568,6 +568,8 @@ def delete_listof_image(request):
                 cursor.execute(query)
                 try:
                     path = cursor.fetchone()[0]
+                    print('path 0::::::::::::',path)
+                    print('images 0::::::::::::',images)
                     remove_list_of_images(path, images)
                     images = 'removing successfully image' 
                 except:
