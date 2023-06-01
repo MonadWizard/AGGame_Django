@@ -70,9 +70,9 @@ def get_all_images_name(path):
     for root, dirs, files in os.walk(MEDIA_ROOT + path):
         for file in files:
             file_names.append(path+file)
-            print('file_names::::', file_names)
-            print('file::::', file)
-            print('path::::', path)
+            # print('file_names::::', file_names)
+            # print('file::::', file)
+            # print('path::::', path)
     return file_names
 
 
