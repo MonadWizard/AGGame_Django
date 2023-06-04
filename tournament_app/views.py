@@ -14,28 +14,35 @@ def TournamentCreation(request):
         return Response('get data')
 
     elif request.method == 'POST':
+        
+        req_data = request.data
+        # if tournament_id exist then update tournament
+        if 'tournament_id' in req_data:
+            tournament_id = req_data['tournament_id']
+            print('update tournament')
 
-        base64_image = request.data['tournament_logo']
-        image_extension = request.data['tournament_photopath_extension']
+        else:
+            dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
+            tournament_id = str(dtt)
+            print('create tournament')
+        
+        if 'tournament_logo' in req_data:
+            base64_image = req_data['tournament_logo']
+            image_extension = req_data['tournament_photopath_extension']
+            tournament_logo_path = '/tournament_logo/' + str(tournament_id) + '/'
+            image_url = image_decoder(base64_image, image_extension,tournament_id, tournament_logo_path)
+            data = json.dumps(req_data)
+            data = json.loads(data)
+            del data['tournament_photopath_extension']
+            data['tournament_logo'] = image_url
 
-        # MEDIA_ROOT = settings.MEDIA_ROOT
-        # create tournament name by current date and time
-        dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
-        tournament_id = str(dtt)
-        tournament_logo_path = '/tournament_logo/' + str(tournament_id) + '/'
-        image_url = image_decoder(base64_image, image_extension,tournament_id, tournament_logo_path)
-
-        data = json.dumps(request.data)
-        data = json.loads(data)
-        del data['tournament_photopath_extension']
+        # data = json.dumps(req_data)
+        # data = json.loads(data)
+        # del data['tournament_photopath_extension']
         data['tournament_id'] = tournament_id
-        data['tournament_logo'] = image_url
+        # data['tournament_logo'] = image_url
         data = json.dumps(data)
 
-        # print('image_url::::', image_url)
-        # print('data::::', data)
-
-        # data = json.dumps(request.data)
         query = f"select Create_Tournament('{data}');"
         with connection.cursor() as cursor:
             try:

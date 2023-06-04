@@ -16,7 +16,7 @@ def get_user(token):
     try:
         validated_token = JWTAuthentication().get_validated_token(token)
         user = JWTAuthentication().get_user(validated_token)
-        print("user::::: ", user)
+        # print("user::::: ", user)
         return user
 
     except Exception:
@@ -30,6 +30,7 @@ class JWTAuthMiddleware(BaseMiddleware):
         if b"authorization" in headers:
             # token = headers[b"authorization"].decode().split()[1]
             token = headers[b"authorization"].decode()
+            print("token::::: ", token)
             scope["user"] = await get_user(token)
         else:
             scope["user"] = AnonymousUser()
