@@ -19,12 +19,12 @@ def TournamentCreation(request):
         # if tournament_id exist then update tournament
         if 'tournament_id' in req_data:
             tournament_id = req_data['tournament_id']
-            print('update tournament')
+            # print('update tournament')
 
         else:
             dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
             tournament_id = str(dtt)
-            print('create tournament')
+            # print('create tournament')
         
         if 'tournament_logo' in req_data:
             base64_image = req_data['tournament_logo']
