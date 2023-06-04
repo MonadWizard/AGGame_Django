@@ -36,11 +36,10 @@ def image_decoder(base64_image, image_extension, userid,path):
     directory = path
     if not os.path.exists(directory):
         os.makedirs(directory)
-        print('directory created')
-    else:
-        print('directory already exists')
-
-    print('path::::', path)
+        # print('directory created')
+    # else:
+    #     print('directory already exists')
+    # print('path::::', path)
     
     # Decode base64 string to bytes
     image_data = base64.b64decode(base64_image)
