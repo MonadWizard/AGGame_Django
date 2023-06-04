@@ -28,6 +28,7 @@ def TournamentCreation(request):
         data = json.dumps(request.data)
         data = json.loads(data)
         del data['tournament_photopath_extension']
+        data['tournament_id'] = tournament_id
         data['tournament_logo'] = image_url
         data = json.dumps(data)
 
