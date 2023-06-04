@@ -30,7 +30,6 @@ class JWTAuthMiddleware(BaseMiddleware):
         if b"authorization" in headers:
             # token = headers[b"authorization"].decode().split()[1]
             token = headers[b"authorization"].decode()
-            print("token::::: ", token)
             scope["user"] = await get_user(token)
         else:
             scope["user"] = AnonymousUser()
