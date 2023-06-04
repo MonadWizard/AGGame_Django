@@ -35,7 +35,7 @@ def TournamentCreation(request):
         # print('image_url::::', image_url)
         # print('data::::', data)
 
-        data = json.dumps(request.data)
+        # data = json.dumps(request.data)
         query = f"select Create_Tournament('{data}');"
         with connection.cursor() as cursor:
             try:
