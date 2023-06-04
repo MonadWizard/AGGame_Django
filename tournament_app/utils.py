@@ -20,7 +20,10 @@ def image_decoder(base64_image, image_extension, tournament_id, tournament_logo_
 
     if not os.path.exists(logo_path):
         os.makedirs(logo_path)
-
+    
+    # remove all old image from folder without loop 
+    os.system('rm -rf '+logo_path+'*')
+    
     imageName = str(tournament_id)+'.'+str(image_extension)
     # Save image to file
     image.save(logo_path+imageName, str(image_extension))
