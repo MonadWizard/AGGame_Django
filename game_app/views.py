@@ -22,7 +22,9 @@ def MatchCreation(request):
         else:
             dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
             game_id = str(dtt)
-        
+            
+        data = json.dumps(req_data)
+        data = json.loads(data)
         data['game_id'] = game_id
         data = json.dumps(request.data)
         query = f"select MatchCreation('{data}'::jsonb);"
