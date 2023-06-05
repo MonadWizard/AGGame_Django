@@ -149,3 +149,8 @@ EMAIL_PORT = os.environ['EMAIL_SERVER_PORT']
 EMAIL_HOST_USER = os.environ['EMAIL_SERVER_EMAIL_ADDRESS']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_SERVER_EMAIL_PASSWORD']
 EMAIL_USE_TLS = True
+
+CORS_ALLOW_HEADERS = [
+    'authorization',  # Add other headers you need to allow
+    'content-type',
+]
