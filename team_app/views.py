@@ -3,6 +3,11 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.db import connection
 import json
+import datetime
+
+from tournament_app.utils import image_decoder
+
+
 
 
 @api_view(['GET','POST'])
@@ -201,7 +206,34 @@ def upsert_team(request):
         return Response('get data')
 
     elif request.method == 'POST':
-        data = json.dumps(request.data)
+
+        data = request.data
+        # if tournament_id exist then update tournament
+        if 'team_id' in data:
+            team_id = data['team_id']
+            # print('update tournament')
+
+        else:
+            dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
+            team_id = str(dtt)
+            # print('create tournament')
+        
+        if 'team_logo' in data:
+            base64_image = data['team_logo']
+            image_extension = data['team_photopath_extension']
+            team_logo_path = '/team_logo/' + str(team_id) + '/'
+            image_url = image_decoder(base64_image, image_extension,team_id, team_logo_path)
+            data = json.dumps(data)
+            data = json.loads(data)
+            del data['team_photopath_extension']
+            data['team_logo'] = image_url
+
+        data = json.dumps(data)
+        data = json.loads(data)
+        data['team_id'] = team_id
+        # data['tournament_logo'] = image_url
+        data = json.dumps(data)
+
         query = f"select Upsert_team_basic_info('{data}');"
 
         with connection.cursor() as cursor:
