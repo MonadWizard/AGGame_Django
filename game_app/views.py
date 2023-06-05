@@ -33,7 +33,7 @@ def MatchCreation(request):
         query = f"select MatchCreation('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
-                # cursor.execute(query)
+                cursor.execute(query)
 
                 return Response(
                     {
