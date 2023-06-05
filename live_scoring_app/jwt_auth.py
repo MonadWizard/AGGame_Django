@@ -27,9 +27,9 @@ def get_user(token):
 class JWTAuthMiddleware(BaseMiddleware):
     async def __call__(self, scope, receive, send):
         headers = dict(scope["headers"])
-        if b"authorization" in headers:
-            # token = headers[b"authorization"].decode().split()[1]
-            token = headers[b"authorization"].decode()
+        if b"token" in headers:
+            # token = headers[b"token"].decode().split()[1]
+            token = headers[b"token"].decode()
             scope["user"] = await get_user(token)
         else:
             scope["user"] = AnonymousUser()
