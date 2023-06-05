@@ -80,6 +80,8 @@ class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
     async def connect(self):
 
         # self.connect_user = self.scope["url_route"]["kwargs"]["userid"]
+        headers = dict(self.scope["headers"])
+        print("headers : ", headers)
 
         if self.scope["user"].is_anonymous:
             print("Anonymous user")

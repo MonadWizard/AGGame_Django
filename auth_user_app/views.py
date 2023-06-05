@@ -166,6 +166,7 @@ def edit_user_profile(request):
         return Response('get data')
 
     elif request.method == 'POST':
+        
 
         base64_images = request.data['user_photopath']
         # image_extension = request.data['user_photopath_extension']
