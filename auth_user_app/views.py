@@ -166,29 +166,30 @@ def edit_user_profile(request):
         return Response('get data')
 
     elif request.method == 'POST':
+
+        req_data = request.data
+        if 'user_photopath' in req_data:
+            base64_images = request.data['user_photopath']
+            # image_extension = request.data['user_photopath_extension']
+            userid = request.data['userid']
+            MEDIA_ROOT = settings.MEDIA_ROOT
+            prifile_picture_path = '/profilepic/' + str(userid) + '/'
+            path = MEDIA_ROOT + prifile_picture_path 
+
+            data = json.dumps(req_data)
+            data = json.loads(data)
+            # handle base64_images is empty or not
+            try:
+                for image_extension, base64_image in base64_images.items():
+                    # take last part from splitted image_extension
+                    image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid,path)
+                    # image_urls = image_urls + [image_url]
+                    # data['user_photopath'] = image_urls
+                    # data['user_photopath'] = path
+                    data['user_photopath'] = prifile_picture_path
+            except:
+                pass
         
-
-        base64_images = request.data['user_photopath']
-        # image_extension = request.data['user_photopath_extension']
-        userid = request.data['userid']
-        MEDIA_ROOT = settings.MEDIA_ROOT
-        prifile_picture_path = '/profilepic/' + str(userid) + '/'
-        path = MEDIA_ROOT + prifile_picture_path 
-
-        data = json.dumps(request.data)
-        data = json.loads(data)
-        # handle base64_images is empty or not
-        try:
-            for image_extension, base64_image in base64_images.items():
-                # take last part from splitted image_extension
-                image_decoder(base64_image, image_extension.rsplit('_',1)[-1], userid,path)
-                # image_urls = image_urls + [image_url]
-                # data['user_photopath'] = image_urls
-                # data['user_photopath'] = path
-        except:
-            pass
-        # data['user_photopath'] = image_urls
-        data['user_photopath'] = prifile_picture_path
         data = json.dumps(data)
         print('data::::::::::::',data)
 
