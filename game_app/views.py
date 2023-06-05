@@ -3,6 +3,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.db import connection
 import json
+import datetime
+
 
 @api_view(['GET','POST'])
 def MatchCreation(request):
@@ -10,6 +12,18 @@ def MatchCreation(request):
         return Response('get data')
 
     elif request.method == 'POST':
+
+        req_data = request.data
+        # if tournament_id exist then update tournament
+        if 'game_id' in req_data:
+            game_id = req_data['game_id']
+            # print('update tournament')
+
+        else:
+            dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
+            game_id = str(dtt)
+        
+        data['game_id'] = game_id
         data = json.dumps(request.data)
         query = f"select MatchCreation('{data}'::jsonb);"
         with connection.cursor() as cursor:

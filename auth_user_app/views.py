@@ -191,7 +191,6 @@ def edit_user_profile(request):
                 pass
         
         data = json.dumps(data)
-        print('data::::::::::::',data)
 
         query = f"select edit_profile('{data}'::jsonb);"
         with connection.cursor() as cursor:
