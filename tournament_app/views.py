@@ -15,10 +15,10 @@ def TournamentCreation(request):
 
     elif request.method == 'POST':
         
-        req_data = request.data
+        data = request.data
         # if tournament_id exist then update tournament
-        if 'tournament_id' in req_data:
-            tournament_id = req_data['tournament_id']
+        if 'tournament_id' in data:
+            tournament_id = data['tournament_id']
             # print('update tournament')
 
         else:
@@ -26,17 +26,17 @@ def TournamentCreation(request):
             tournament_id = str(dtt)
             # print('create tournament')
         
-        if 'tournament_logo' in req_data:
-            base64_image = req_data['tournament_logo']
-            image_extension = req_data['tournament_photopath_extension']
+        if 'tournament_logo' in data:
+            base64_image = data['tournament_logo']
+            image_extension = data['tournament_photopath_extension']
             tournament_logo_path = '/tournament_logo/' + str(tournament_id) + '/'
             image_url = image_decoder(base64_image, image_extension,tournament_id, tournament_logo_path)
-            data = json.dumps(req_data)
+            data = json.dumps(data)
             data = json.loads(data)
             del data['tournament_photopath_extension']
             data['tournament_logo'] = image_url
 
-        data = json.dumps(req_data)
+        data = json.dumps(data)
         data = json.loads(data)
         data['tournament_id'] = tournament_id
         # data['tournament_logo'] = image_url

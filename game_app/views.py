@@ -13,24 +13,27 @@ def MatchCreation(request):
 
     elif request.method == 'POST':
 
-        req_data = request.data
+        data = request.data
         # if tournament_id exist then update tournament
-        if 'game_id' in req_data:
-            game_id = req_data['game_id']
+        if 'game_id' in data:
+            game_id = data['game_id']
             # print('update tournament')
 
         else:
             dtt = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
             game_id = str(dtt)
-            
-        data = json.dumps(req_data)
+
+        data = json.dumps(data)
         data = json.loads(data)
+        
         data['game_id'] = game_id
-        data = json.dumps(request.data)
+
+        data = json.dumps(data)
+        print('data:::::::::',data)
         query = f"select MatchCreation('{data}'::jsonb);"
         with connection.cursor() as cursor:
             try:
-                cursor.execute(query)
+                # cursor.execute(query)
 
                 return Response(
                     {
