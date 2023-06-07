@@ -79,17 +79,10 @@ class SportsScoreConsumer(AsyncWebsocketConsumer):
 class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
     async def connect(self):
 
-        # self.connect_user = self.scope["url_route"]["kwargs"]["userid"]
-        # headers = dict(self.scope["headers"])
-        # print("headers : ", headers)
-
         if self.scope["user"].is_anonymous:
-            # print("Anonymous user")
             self.connect_user = None
-            # pass
         else:
             user = self.scope["user"]
-            # print("Authenticated user : ", user)
             self.connect_user = user.userid
 
         self.connect_match = self.scope["url_route"]["kwargs"]["matchid"]
@@ -102,8 +95,6 @@ class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
             self.channel_name)
         await self.accept()
 
-
-        # Send a confirmation message to the user
         await self.send(text_data=json.dumps({
             'success': True,
             'message': 'Connected'
@@ -119,42 +110,26 @@ class SportsScoreConsumerAuth(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         # Parse the incoming data
         text_data_json = json.loads(text_data)
-
-        # Check if the user is allowed to send data
-            # user = await sync_to_async(User.objects.get)(userid=self.connect_user)
         if self.connect_user is None:
             await self.send(text_data=json.dumps({
                         'status': 'Anonymous user'
                     }))
             return
-            
-            
-        
-                
-        # # Only allow the user who initiated the WebSocket connection to send data
-        # if self.connect_user != allowed_users:
-        #     return
-
-        score = text_data_json['score']
-        # print(f"\nOn receive: {self.room_group_name}, user: {self.connect_user}, match: {self.connect_match}\n")
-
         # Broadcast the score to all users in the group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'sports_score',
                 'success': True,
-                'score': score
+                'data': text_data_json
             }
         )
 
     async def sports_score(self, event):
-        score = event['score']
-        print("sports_score : ", score)
-
         # Send the score to the user
         await self.send(text_data=json.dumps({
-            'score': score
+            'success': event['success'],
+            'data': event['data']
         }))
 
 
@@ -220,24 +195,21 @@ class SportsScoreConsumersync(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         # Parse the incoming data
         text_data_json = json.loads(text_data)
-        score = text_data_json['score']
         # Broadcast the score to all users in the group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'sports_score',
                 'success': True,
-                'score': score
+                'data': text_data_json
             }
         )
 
     async def sports_score(self, event):
-        score = event['score']
-        print("sports_score : ", score)
-
         # Send the score to the user
         await self.send(text_data=json.dumps({
-            'score': score
+            'success': event['success'],
+            'data': event['data']
         }))
 
 
