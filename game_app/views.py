@@ -35,10 +35,16 @@ def MatchCreation(request):
             try:
                 cursor.execute(query)
 
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+
                 return Response(
                     {
                         "status": "success",
-                        "data": "match create success",
+                        "data": row,
                     },
                     status=status.HTTP_200_OK,
                 )
