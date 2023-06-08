@@ -16,9 +16,9 @@ urlpatterns = [
     path('start_match_game/', start_match_game, name='start_match_game'),
     path('ball_type/', ball_type, name='ball_type'),
 
-    path('get_batsman_aggrigation_data/<str:matchid>', get_batsman_aggrigation_data, name='get_batsman_aggrigation_data'),
-    path('get_bowler_aggrigation_data/<str:matchid>', get_bowler_aggrigation_data, name='get_bowler_aggrigation_data'),
-    path('get_fielding_aggrigation_data/<str:matchid>', get_fielding_aggrigation_data, name='get_fielding_aggrigation_data'),
+    path('get_batsman_aggrigation_data/<str:matchid>/', get_batsman_aggrigation_data, name='get_batsman_aggrigation_data'),
+    path('get_bowler_aggrigation_data/<str:matchid>/', get_bowler_aggrigation_data, name='get_bowler_aggrigation_data'),
+    path('get_fielding_aggrigation_data/<str:matchid>/', get_fielding_aggrigation_data, name='get_fielding_aggrigation_data'),
 
 
 ]
