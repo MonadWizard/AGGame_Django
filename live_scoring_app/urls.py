@@ -1,5 +1,12 @@
 from django.urls import path
-from .views import input_live_Score_tournament, start_match_tournament , input_live_score_game , start_match_game, ball_type
+from .views import input_live_Score_tournament, \
+                    start_match_tournament , \
+                    input_live_score_game , \
+                    start_match_game, \
+                    ball_type, \
+                    get_batsman_aggrigation_data, \
+                    get_bowler_aggrigation_data, \
+                    get_fielding_aggrigation_data
 
 
 urlpatterns = [
@@ -9,7 +16,10 @@ urlpatterns = [
     path('start_match_game/', start_match_game, name='start_match_game'),
     path('ball_type/', ball_type, name='ball_type'),
 
-    
+    path('get_batsman_aggrigation_data/<str:matchid>', get_batsman_aggrigation_data, name='get_batsman_aggrigation_data'),
+    path('get_bowler_aggrigation_data/<str:matchid>', get_bowler_aggrigation_data, name='get_bowler_aggrigation_data'),
+    path('get_fielding_aggrigation_data/<str:matchid>', get_fielding_aggrigation_data, name='get_fielding_aggrigation_data'),
+
 
 ]
 
