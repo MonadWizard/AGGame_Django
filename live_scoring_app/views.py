@@ -307,3 +307,52 @@ def get_fielding_aggrigation_data(request, matchid):
 
     elif request.method == 'POST':
         return Response('post data')
+
+
+
+
+
+@api_view(['GET','POST'])
+def get_start_match_game(request, matchid):
+
+    if request.method =='GET':
+        # data = matchid
+        query = f"select get_match_start('{matchid}');"
+
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query)
+                try:
+                    row = cursor.fetchone()
+                    row = json.loads(row[0])
+                except:
+                    row = cursor.fetchall()
+                return Response(
+                    {
+                        "status": "success",
+                        "data": row,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                err_msg = str(e)
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": err_msg,
+                    },
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
+                )
+
+
+    elif request.method == 'POST':
+        return Response('post data')
+
+
+
+
+
+
+
+
+
