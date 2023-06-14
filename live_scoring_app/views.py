@@ -313,11 +313,15 @@ def get_fielding_aggrigation_data(request, matchid):
 
 
 @api_view(['GET','POST'])
-def get_start_match_game(request, matchid):
+def get_start_match_game(request):
 
     if request.method =='GET':
         # data = matchid
-        query = f"select get_match_start('{matchid}');"
+        data = json.dumps(request.data)
+        print("data::::::::::::",data)
+
+
+        query = f"select get_match_start('{data}'::jsonb);"
 
         with connection.cursor() as cursor:
             try:
