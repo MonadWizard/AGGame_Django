@@ -7,7 +7,9 @@ from .views import input_live_Score_tournament, \
                     get_batsman_aggrigation_data, \
                     get_bowler_aggrigation_data, \
                     get_fielding_aggrigation_data, \
-                    get_start_match_game
+                    get_start_match_game, \
+                    player_position_update, \
+                    player_position_get
 
 
 urlpatterns = [
@@ -23,6 +25,10 @@ urlpatterns = [
     path('get_batsman_aggrigation_data/<str:matchid>/', get_batsman_aggrigation_data, name='get_batsman_aggrigation_data'),
     path('get_bowler_aggrigation_data/<str:matchid>/', get_bowler_aggrigation_data, name='get_bowler_aggrigation_data'),
     path('get_fielding_aggrigation_data/<str:matchid>/', get_fielding_aggrigation_data, name='get_fielding_aggrigation_data'),
+
+    path('player_position_update/', player_position_update, name='player_position_update'),
+    path('player_position_get/<str:matchid>/', player_position_get, name='player_position_get'),
+
 
 
 ]
