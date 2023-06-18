@@ -2,7 +2,7 @@ from django.urls import path
 from .views import TournamentCreation , get_tournament_details,get_tournament_info, \
         tournament_schedule, upcomming_tournament_list, tournament_update,tournament_search, \
         tournament_team_search,get_tournament_shedule, tournament_start, tournament_schedule_update, \
-        get_insert_team_data
+        get_insert_team_data, check_tadmin_data
 
 
 urlpatterns = [
@@ -22,5 +22,10 @@ urlpatterns = [
     path('tournament_team_search/<str:data>/', tournament_team_search, name='tournament_team_search'),
     
     path('tournament_start/', tournament_start, name='tournament_start'),
+
+    path('check_tadmin_data/<str:admindata>/', check_tadmin_data, name='check_tadmin_data'),
+
+
+
 
 ]
