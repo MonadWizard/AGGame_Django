@@ -143,7 +143,6 @@ class SportsScoreConsumersync(AsyncWebsocketConsumer):
         # self.connect_user = self.scope["url_route"]["kwargs"]["userid"]
 
         if self.scope["user"].is_anonymous:
-            print("Anonymous user")
             self.connect_user = None
 
             self.connect_match = self.scope["url_route"]["kwargs"]["matchid"]
